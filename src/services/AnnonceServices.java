@@ -11,6 +11,7 @@ import Interfaces.IAnnonce;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import static services.UserService.conn;
      
 public class AnnonceServices implements IAnnonce {
     private final Connection c = MyConnection.getInstance().getConnection();
@@ -21,7 +22,7 @@ public class AnnonceServices implements IAnnonce {
     @Override
     public void AjouterAnnonce(Annonce a) {
      PreparedStatement st;
-     String query="insert into annonce (NomAnnonce,Description,type,PrixReducton,nomImage,etat) values(?,?,?,?,?,?)";
+     String query="insert into annonce (NomAnnonce,Description,type,PrixReducton,nomImage,etat,idUser) values(?,?,?,?,?,?,?)";
         try {
             st= c.prepareStatement(query);
             st.setString(1,a.getNomAnnonce() );
@@ -30,6 +31,7 @@ public class AnnonceServices implements IAnnonce {
             st.setDouble(4,a.getPrixReducton());
             st.setString(5,a.getImage());
             st.setInt(6,0);
+            st.setInt(7,conn);
             st.executeUpdate();
             System.out.println("Ajout accompli avec succés");
             
@@ -153,6 +155,23 @@ public class AnnonceServices implements IAnnonce {
             if(b!=null){
             PreparedStatement st;
             String query = "delete from annonce where id='"+a.getId()+"'";
+            st=c.prepareStatement(query);
+            st.executeUpdate();
+            System.out.println("Suppression effectuée avec succès");
+            }
+        }
+        catch (SQLException ex) {
+            System.out.println("erreur lors de la suppression de l'annonce " + ex.getMessage());
+        }
+    }
+     public void SupprimerAnnonceA2(Annonce a) {
+        try {
+            Annonce b;
+            AnnonceServices A=new AnnonceServices();
+            b=A.RechercherAnnonceByName(a.getNomAnnonce());
+            if(b!=null){
+            PreparedStatement st;
+            String query = "delete from annonce where id='"+a.getId()+"' and idUser='"+conn+"'";
             st=c.prepareStatement(query);
             st.executeUpdate();
             System.out.println("Suppression effectuée avec succès");

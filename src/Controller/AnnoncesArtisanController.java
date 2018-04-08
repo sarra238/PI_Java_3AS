@@ -129,19 +129,22 @@ public class AnnoncesArtisanController implements Initializable {
     }});  
     } 
     @FXML
-    public void delete(){
+    public void delete(ActionEvent event) throws IOException{
         ObservableList<Annonce> r,fo;
         AnnonceServices Ann=new AnnonceServices();
         fo=listAnnonce.getItems();
         r=listAnnonce.getSelectionModel().getSelectedItems();
         if(r!=null){
-        r.stream().map((A) -> {
-            Ann.SupprimerAnnonceA(A);
-            return A;
-        }).forEach((A) -> {
-            fo.remove(A);
-        });
+            for(Annonce A : r){
+            Ann.SupprimerAnnonceA2(A);
         }
+        }
+        Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root2 = FXMLLoader.load(getClass().getResource("AnnoncesArtisan.fxml"));
+        Scene scene2 = new Scene(root2); 
+        primary.setTitle("Annonce!");
+        primary.setScene(scene2);
+        primary.show();
     }
 
     @FXML

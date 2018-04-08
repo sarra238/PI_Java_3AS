@@ -6,7 +6,6 @@
 package Controller;
 
 import static Controller.AnnoncesClientController.d;
-import Entities.Annonce;
 import Entities.AvisAnnonce;
 import Entities.CommentAnn;
 import java.io.File;
