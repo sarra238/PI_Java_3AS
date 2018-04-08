@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="229.0" prefWidth="548.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="Controller.AffichCommentEventController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutX="1.0" prefHeight="218.0" prefWidth="546.0">
+         <children>
+            <AnchorPane id="AnchorPane" layoutX="-1.0" layoutY="-1.0" prefHeight="230.0" prefWidth="548.0" style="-fx-background-color: #03224C;">
+               <children>
+                  <TableView fx:id="tableCom" layoutX="20.0" layoutY="19.0" prefHeight="195.0" prefWidth="505.0">
+                     <columns>
+                        <TableColumn fx:id="Commentaire" prefWidth="374.0" text="Commentaire" />
+                        <TableColumn fx:id="date" minWidth="0.0" prefWidth="129.0" text="Date du commentaire" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

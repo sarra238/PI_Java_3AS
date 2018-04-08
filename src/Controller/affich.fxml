@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" fx:id="liste" prefHeight="430.0" prefWidth="782.0" style="-fx-background-color: #03224C;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AffichController">
+    <stylesheets>
+        <URL value="@affich.css" />
+    </stylesheets>
+   <children>
+      <Button fx:id="delete" layoutX="265.0" layoutY="403.0" mnemonicParsing="false" onAction="#delete" style="-fx-background-color: #03224C;" text="Supprimer Evenement" textFill="WHITE" />
+      <Button fx:id="stat" layoutX="416.0" layoutY="403.0" mnemonicParsing="false" onAction="#stat" style="-fx-background-color: #03224C;" text="Statistique Par type" textFill="#fffdfd" />
+      <Button fx:id="add" layoutX="14.0" layoutY="403.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #03224C;" text="Ajouter Evenement" textFill="#f2f2f2" />
+      <Button fx:id="modifier" layoutX="141.0" layoutY="404.0" mnemonicParsing="false" onAction="#modifier" style="-fx-background-color: #03224C;" text="Modifier Evenement" textFill="WHITE" />
+      <TableView fx:id="table_view" layoutX="155.0" layoutY="60.0" prefHeight="331.0" prefWidth="608.0">
+        <columns>
+          <TableColumn fx:id="nom_Evenement" prefWidth="145.0" text="Nom" />
+          <TableColumn fx:id="description" prefWidth="144.0" text="description" />
+            <TableColumn fx:id="type" prefWidth="54.0" text="type" />
+            <TableColumn fx:id="localisation" text="localisation" />
+            <TableColumn fx:id="dated" prefWidth="96.0" text="Date Debut" />
+            <TableColumn fx:id="datef" prefWidth="89.0" text="date Fin" />
+        </columns>
+      </TableView>
+      <TextField fx:id="seach" layoutX="10.0" layoutY="281.0" prefHeight="25.0" prefWidth="123.0" promptText="Recherche" />
+      <ImageView fx:id="imgV" fitHeight="150.0" fitWidth="153.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="StatAvisBtn" layoutX="550.0" layoutY="402.0" mnemonicParsing="false" onAction="#statAvis" style="-fx-background-color: #03224C;" text="Statistique Par avis" textFill="#fffdfd" />
+      <Button fx:id="CommentBtn" layoutX="668.0" layoutY="401.0" mnemonicParsing="false" onAction="#Comment" style="-fx-background-color: #03224c;" text="Les Commentaires" textFill="WHITE" />
+      <AnchorPane layoutX="10.0" layoutY="9.0" prefHeight="46.0" prefWidth="753.0" style="-fx-background-color: #03224C;">
+         <children>
+            <Button fx:id="Home" layoutX="39.0" layoutY="11.0" mnemonicParsing="false" onAction="#Home" style="-fx-background-color: #03224C;" text="Home" textFill="WHITE" />
+            <Button fx:id="Produits" layoutX="114.0" layoutY="11.0" mnemonicParsing="false" onAction="#Produits" style="-fx-background-color: #03224C;" text="Produits" textFill="WHITE" />
+            <Button fx:id="Annonces" layoutX="225.0" layoutY="11.0" mnemonicParsing="false" onAction="#Annonces" style="-fx-background-color: #03224C;" text="Annonces" textFill="#fffafa" />
+            <Button fx:id="Evénements" layoutX="339.0" layoutY="11.0" mnemonicParsing="false" onAction="#Event" style="-fx-background-color: #03224C;" text="Evénements" textFill="WHITE" />
+            <Button fx:id="Restaurants" layoutX="488.0" layoutY="11.0" mnemonicParsing="false" onAction="#Resto" style="-fx-background-color: #03224C;" text="Restaurants" textFill="WHITE" />
+            <Button fx:id="SAV" layoutX="622.0" layoutY="11.0" mnemonicParsing="false" onAction="#Sav" style="-fx-background-color: #03224C;" text="SAV" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
