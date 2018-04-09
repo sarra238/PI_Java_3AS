@@ -45,7 +45,7 @@ public class AnnonceServices implements IAnnonce {
     {
         List<Annonce> Ann= new ArrayList<>();
         
-       String query="select id,nomAnnonce,Description,Type,PrixReducton,nomImage,etat from Annonce ";
+       String query="select id,nomAnnonce,Description,Type,PrixReducton,nomImage,etat,idUser from Annonce ";
        int e;
         try {
             Statement st=c.createStatement();
@@ -61,6 +61,7 @@ public class AnnonceServices implements IAnnonce {
                 A.setType(rs.getString(4));
                 A.setPrixReducton(rs.getDouble(5));
                 A.setImage(rs.getString(6));
+                A.setIdUser(rs.getInt(7));
                 if(e==1){
                 Ann.add(A);}
             }
@@ -76,7 +77,7 @@ public class AnnonceServices implements IAnnonce {
     {
         List<Annonce> Ann= new ArrayList<>();
         
-       String query="select id,nomAnnonce,Description,Type,PrixReducton,nomImage,etat from Annonce ";
+       String query="select id,nomAnnonce,Description,Type,PrixReducton,nomImage,etat,idUser from Annonce ";
        int e;
         try {
             Statement st=c.createStatement();
@@ -92,6 +93,7 @@ public class AnnonceServices implements IAnnonce {
                 A.setType(rs.getString(4));
                 A.setPrixReducton(rs.getDouble(5));
                 A.setImage(rs.getString(6));
+                A.setIdUser(rs.getInt(7));
                 if(e==0){
                 Ann.add(A);}
             }
@@ -203,7 +205,7 @@ public class AnnonceServices implements IAnnonce {
     public void ModifierAnnonce(Annonce a) {
          try {
             PreparedStatement pt;
-            String query = "update annonce set nomAnnonce=? ,description=?,type=?,prixReducton=?,nomImage=? where id='"+a.getId()+"'";
+            String query = "update annonce set nomAnnonce=? ,description=?,type=?,prixReducton=?,nomImage=? where id='"+a.getId()+"' and idUser='"+a.getIdUser()+"'";
             pt=c.prepareStatement(query);
             pt.setString(1,a.getNomAnnonce());
             pt.setString(2,a.getDescription());

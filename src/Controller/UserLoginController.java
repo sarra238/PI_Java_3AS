@@ -40,6 +40,8 @@ public class UserLoginController implements Initializable {
     private Hyperlink inscri;
     @FXML
     private Hyperlink MdpOublié;
+    @FXML
+    private Hyperlink videolink;
 
     /**
      * Initializes the controller class.
@@ -67,8 +69,8 @@ public class UserLoginController implements Initializable {
                 switch (b) {
                     case "a:1:{i:0;s:11:\"ROLE_CLIENT\";}":
                     {
-                        /*String[] s={"Bonjour cher client"};
-                        v.sayMultiple(s);*/
+                        String[] s={"Bonjour cher client"};
+                        v.sayMultiple(s);
                         /*Alert alert = new InputValidation().getAlert("Succes", "Bienvenue!");
                         alert.showAndWait();*/
                         Notifications.create().title("Succes").text("Bienvenue!").position(Pos.BOTTOM_RIGHT).showConfirm();
@@ -82,8 +84,8 @@ public class UserLoginController implements Initializable {
                     }
                     case "a:1:{i:0;s:12:\"ROLE_ARTISAN\";}":
                     {
-                        /*String[] s={"Bonjour cher artisan"};
-                        v.sayMultiple(s);*/
+                        String[] s={"Bonjour cher artisan"};
+                        v.sayMultiple(s);
                         /*Alert alert = new InputValidation().getAlert("Succes", "Bienvenue!");
                         alert.showAndWait();*/
                         Notifications.create().title("Succes").text("Bienvenue!").position(Pos.BOTTOM_RIGHT).showConfirm(); 
@@ -97,8 +99,8 @@ public class UserLoginController implements Initializable {
                     }
                     case "a:1:{i:0;s:13:\"ROLE_ADMIN\";}":
                     {
-                        /*String[] s={"Bonjour cher administrator"};
-                        v.sayMultiple(s);*/
+                        String[] s={"Bonjour cher administrator"};
+                        v.sayMultiple(s);
                         /*Alert alert = new InputValidation().getAlert("Succes", "Bienvenue!");
                         alert.showAndWait();*/
                         Notifications.create().title("Succes").text("Bienvenue!").position(Pos.BOTTOM_RIGHT).showConfirm();
@@ -157,6 +159,16 @@ public class UserLoginController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("ForgetPassword.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Mot de passe oublié !");
+        primaryStage.setScene(scene);
+        primaryStage.show();    
+    }
+
+    @FXML
+    private void video(ActionEvent event) throws IOException {
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("VideoIni.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Introduction !");
         primaryStage.setScene(scene);
         primaryStage.show();    
     }

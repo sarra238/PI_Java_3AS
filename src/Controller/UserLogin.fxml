@@ -25,6 +25,7 @@
             </ImageView>
             <Hyperlink fx:id="inscri" layoutX="114.0" layoutY="339.0" onAction="#Inscri" text="Inscription?" />
             <Hyperlink fx:id="MdpOublié" layoutX="260.0" layoutY="339.0" onAction="#MdpOublié" text="Mot de passe oublié?" />
+            <Hyperlink fx:id="videolink" layoutX="26.0" layoutY="14.0" onAction="#video" text="Video?" />
          </children>
       </AnchorPane>
    </children>

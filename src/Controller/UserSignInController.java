@@ -84,7 +84,7 @@ public class UserSignInController implements Initializable {
         U.setAddress(adresse.getText());
         U.setEmail(email.getText());
         if(client.isSelected()){ U.setRole("a:1:{i:0;s:12:\"ROLE_CLIENT\";}");} else if(artisan.isSelected()) {U.setRole("a:1:{i:0;s:12:\"ROLE_ARTISAN\";}");} //else {U.setRole("a:1:{i:0;s:13:"+"\"ROLE_ADMIN\""+";}");} 
-        U.setPhoneNumber((int) Float.parseFloat(tel.getText()));
+        U.setPhoneNumber(Integer.parseInt(tel.getText()));
         U.setUsername(username.getText());
         U.setPassword(mdp.getText());
         if (InputValidation.validTextField(nom.getText())) {

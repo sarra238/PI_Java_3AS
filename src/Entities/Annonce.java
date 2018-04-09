@@ -16,6 +16,7 @@ public class Annonce {
     private String image;
     private int etat;
     private CheckBox select;
+    private int idUser;
 
     public Annonce() {}
 
@@ -88,6 +89,14 @@ public class Annonce {
 
     public void setSelect(CheckBox select) {
         this.select = select;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public int getIdUser() {
+        return idUser;
     }
     
     

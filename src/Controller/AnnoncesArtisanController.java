@@ -41,6 +41,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import services.AnnonceServices;
+import static services.UserService.conn;
 import utils.InputValidation;
 
 public class AnnoncesArtisanController implements Initializable {
@@ -127,6 +128,14 @@ public class AnnoncesArtisanController implements Initializable {
           Image img=new Image(f.toURI().toString());
           imagev.setImage(img);
     }});  
+        /*listAnnonce.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+             if(newSelection.getIdUser()!=conn){
+                 
+             }
+             else{
+                 
+             }
+         });*/
     } 
     @FXML
     public void delete(ActionEvent event) throws IOException{
@@ -135,9 +144,9 @@ public class AnnoncesArtisanController implements Initializable {
         fo=listAnnonce.getItems();
         r=listAnnonce.getSelectionModel().getSelectedItems();
         if(r!=null){
-            for(Annonce A : r){
-            Ann.SupprimerAnnonceA2(A);
-        }
+            r.stream().forEach((A) -> {
+                Ann.SupprimerAnnonceA2(A);
+            });
         }
         Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root2 = FXMLLoader.load(getClass().getResource("AnnoncesArtisan.fxml"));
