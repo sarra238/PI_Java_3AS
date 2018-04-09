@@ -45,6 +45,10 @@ import static services.UserService.conn;
 import utils.InputValidation;
 
 public class AnnoncesArtisanController implements Initializable {
+    
+        public static Annonce da ;
+
+    
     @FXML
     private TableView<Annonce> listAnnonce;
     @FXML
@@ -127,6 +131,7 @@ public class AnnoncesArtisanController implements Initializable {
           f=new File("C:\\wamp64\\www\\SoukI\\web\\imagesAnnonce\\"+newSelection.getImage());
           Image img=new Image(f.toURI().toString());
           imagev.setImage(img);
+          da=newSelection;
     }});  
         /*listAnnonce.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
              if(newSelection.getIdUser()!=conn){
@@ -195,6 +200,8 @@ public class AnnoncesArtisanController implements Initializable {
         fo=listAnnonce.getItems();
         r=listAnnonce.getSelectionModel().getSelectedItems();
         if(r.size()>0){
+            System.out.println(da.getIdUser());
+        if(da.getIdUser()==conn){
         Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root2 = FXMLLoader.load(getClass().getResource("AnnoncesArtisan.fxml"));
         Scene scene2 = new Scene(root2); 
@@ -213,6 +220,7 @@ public class AnnoncesArtisanController implements Initializable {
         primaryStage.setTitle("Modifier Annonce!");
         primaryStage.setScene(scene);
         primaryStage.show();
+        }
         }
     }
 

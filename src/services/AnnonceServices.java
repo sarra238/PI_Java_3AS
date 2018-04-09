@@ -61,7 +61,8 @@ public class AnnonceServices implements IAnnonce {
                 A.setType(rs.getString(4));
                 A.setPrixReducton(rs.getDouble(5));
                 A.setImage(rs.getString(6));
-                A.setIdUser(rs.getInt(7));
+                A.setEtat(rs.getInt(7));
+                A.setIdUser(rs.getInt(8));
                 if(e==1){
                 Ann.add(A);}
             }
