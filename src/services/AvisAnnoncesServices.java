@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static services.UserService.conn;
 import utils.MyConnection;
 
 public class AvisAnnoncesServices implements IAvisAnnonce{
@@ -75,7 +76,7 @@ public class AvisAnnoncesServices implements IAvisAnnonce{
             pt=c.prepareStatement(query);
             ResultSet rs = pt.executeQuery();
             AvisAnnonce a = new AvisAnnonce();
-            if (rs.next()) {
+            while (rs.next()) {
                 a.setAvis(rs.getString(1));
                 a.setIdA(rs.getInt(2));
                 a.setIdUser(rs.getInt(3));
@@ -87,12 +88,12 @@ public class AvisAnnoncesServices implements IAvisAnnonce{
         return null;
     }
     
-     public void ModifierAvisAnnonce(String s,int idA ,int idUser) {
+     public void ModifierAvisAnnonce(AvisAnnonce b) {
          try {
             PreparedStatement pt;
-            String query = "update avisannonce set avis=? where idUser='"+idUser+"' and idA='"+idA+"'";
+            String query = "update avisannonce set avis=? where idUser='"+conn+"' and idA='"+b.getIdA()+"'";
             pt=c.prepareStatement(query);
-            pt.setString(1,s);
+            pt.setString(1,b.getAvis());
             pt.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
         }

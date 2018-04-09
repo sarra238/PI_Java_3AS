@@ -46,6 +46,9 @@ import static services.UserService.conn;
  * @author Win10
  */
 public class AnnonceDétailController implements Initializable {
+    
+    public static AvisAnnonce d2;
+    
     @FXML
     private Label nom;
     @FXML
@@ -104,11 +107,20 @@ public class AnnonceDétailController implements Initializable {
     private void Evaluer(ActionEvent event) throws IOException {
         AvisAnnoncesServices AAS= new AvisAnnoncesServices();
         AvisAnnonce b=new AvisAnnonce();
-        
+        AvisAnnonce c;
             b.setAvis((String) combo.getValue());
             b.setIdA(d.getId());
             b.setIdUser(conn);
+            d2=b;
+            c=AAS.RechercherAvisAnnonceById(d.getId(), conn);
+            if(c==null)
+            {
             AAS.AjouterAvisAnnonce2(b); 
+            }
+            else
+            {
+                AAS.ModifierAvisAnnonce(b);
+            }
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("AnnonceDétail.fxml"));
         Scene scene = new Scene(root);
