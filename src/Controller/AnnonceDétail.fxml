@@ -10,8 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #03324c;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="Controller.AnnonceDétailController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #03324c;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AnnonceDétailController">
    <children>
       <AnchorPane layoutX="34.0" layoutY="-1.0" prefHeight="400.0" prefWidth="527.0" style="-fx-background-color: #FFFFFF;">
          <children>
@@ -32,8 +31,7 @@
             <TableView fx:id="tableCom" layoutX="156.0" layoutY="281.0" prefHeight="137.0" prefWidth="496.0">
                <columns>
                   <TableColumn fx:id="commentaire" editable="false" prefWidth="304.0" sortType="DESCENDING" sortable="false" text="commentaire" />
-                  <TableColumn fx:id="date" prefWidth="156.0" text="Date" />
-                  <TableColumn fx:id="user" prefWidth="35.0" text="user" />
+                  <TableColumn fx:id="date" prefWidth="191.0" text="Date" />
                </columns>
             </TableView>
             <Label layoutX="217.0" layoutY="218.0" text="Commentaire :" />

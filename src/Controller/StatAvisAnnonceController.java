@@ -21,10 +21,6 @@ import services.AvisAnnoncesServices;
 public class StatAvisAnnonceController implements Initializable {
     @FXML
     private PieChart pie;
-    @FXML
-    private Label statlabel;
-    @FXML
-    private Button retour;
 
     /**
      * Initializes the controller class.
@@ -49,20 +45,7 @@ public class StatAvisAnnonceController implements Initializable {
                        new PieChart.Data("TrésBien",j)
                );
         pie.setData(pieChartData);
-        pie.getData().stream().forEach((PieChart.Data data) -> {
-            data.getNode().addEventHandler(MouseEvent.ANY,(MouseEvent e)->{
-                statlabel.setVisible(true);
-                statlabel.setText(data.getName()+ " : "+data.getPieValue()+"%");
-            });
-       });
     }    
 
-    @FXML
-    private void retour(ActionEvent event) {
-        /*Stage stage = (Stage)retour.getScene().getWindow();// ici je suppose que retour est un composant (button, textField, etc) annoté avec @FXML 
-        stage.show();
-        Stage secondStage= (Stage)( (Node) (event.getSource())).getScene().getWindow();
-        secondStage.close();*/
-    }
     
 }

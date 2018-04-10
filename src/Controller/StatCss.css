@@ -10,14 +10,13 @@ and open the template in the editor.
 
 .chart{
     -fx-clockwise: false;
-    -fx-pie-label-visible: true;
+    -fx-pie-label-visible: false;
     -fx-label-line-length: 2;
     -fx-start-angle: 30;
     -fx-legend-side: right;
 }
 .chart-pie-label{
     -fx-font-size:10px;
-    -fx-color:#FFFFFF;
 }
 .chart-content{
     -fx-padding: 2;

@@ -101,5 +101,21 @@ public class AvisAnnoncesServices implements IAvisAnnonce{
             System.out.println("erreur lors de la mise à jour de l'annonce " + ex.getMessage());
         }               
     }
+     public int CountAvis2(String id,int idA) {
+        int i=0;
+        try {
+            PreparedStatement pt;
+            String query = "select * from avisannonce where avis='"+id+"' and idA='"+idA+"'";
+            pt=c.prepareStatement(query);
+            ResultSet rs = pt.executeQuery();
+            while(rs.next()){
+                i+=1;
+            }
+        }
+         catch (SQLException ex) {
+            System.out.println("Erreur " + ex.getMessage());
+        }  
+        return i;
+    }
     
 }

@@ -6,6 +6,7 @@
 package Controller;
 
 import Entities.Annonce;
+import Entities.CommentAnn;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
@@ -29,6 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
@@ -39,8 +41,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.AnnonceServices;
+import services.AvisAnnoncesServices;
+import services.CommentAnnoncesServices;
 import static services.UserService.conn;
 import utils.InputValidation;
 
@@ -91,6 +96,14 @@ public class AnnoncesArtisanController implements Initializable {
     File f;
     @FXML
     private Button partageFBBTn;
+    @FXML
+    private PieChart pie;
+    @FXML
+    private TableView<CommentAnn> tableCom;
+    @FXML
+    private TableColumn<CommentAnn, String> commentaire;
+    @FXML
+    private TableColumn<CommentAnn, String> date;
     
     /**
      * Initializes the controller class.
@@ -133,14 +146,37 @@ public class AnnoncesArtisanController implements Initializable {
           imagev.setImage(img);
           da=newSelection;
     }});  
-        /*listAnnonce.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-             if(newSelection.getIdUser()!=conn){
-                 
-             }
-             else{
-                 
-             }
-         });*/
+        listAnnonce.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+       if (newSelection != null) {
+            int i,j,k,f2,r;
+       AvisAnnoncesServices A2 = new AvisAnnoncesServices();
+       i=A2.CountAvis2("Mauvais",newSelection.getId());
+       k=A2.CountAvis2("Passable",newSelection.getId());
+       f2=A2.CountAvis2("Bien",newSelection.getId());
+       r=A2.CountAvis2("Assez Bien",newSelection.getId());
+       j=A2.CountAvis2("TrésBien",newSelection.getId());
+        ObservableList<PieChart.Data> pieChartData =
+               FXCollections.observableArrayList(
+                       new PieChart.Data("Mauvais",i),
+                       new PieChart.Data("Passable",k),
+                       new PieChart.Data("Bien",f2),
+                       new PieChart.Data("Assez Bien",r),
+                       new PieChart.Data("TrésBien",j)
+               );
+        pie.setData(pieChartData);
+       }
+         });
+        listAnnonce.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+       if (newSelection != null) {
+        tableCom.setVisible(true);
+        CommentAnnoncesServices v =  new  CommentAnnoncesServices();    
+        ArrayList arrayList = (ArrayList) v.AfficherAllComment2(newSelection.getId());
+        ObservableList observablelist = FXCollections.observableArrayList(arrayList);
+        tableCom.setItems(observablelist);
+        commentaire.setCellValueFactory(new PropertyValueFactory<>("commentAnn"));
+        date.setCellValueFactory(new PropertyValueFactory<>("d"));
+                }
+        });
     } 
     @FXML
     public void delete(ActionEvent event) throws IOException{

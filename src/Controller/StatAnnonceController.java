@@ -21,8 +21,6 @@ public class StatAnnonceController implements Initializable {
     
     @FXML
     private PieChart pie;
-    @FXML
-    private Label statlabel;
 
     /**
      * Initializes the controller class.
@@ -41,11 +39,5 @@ public class StatAnnonceController implements Initializable {
                        new PieChart.Data("Other",j)
                );
         pie.setData(pieChartData);
-        pie.getData().stream().forEach((Data data) -> {
-            data.getNode().addEventHandler(MouseEvent.ANY,(MouseEvent e)->{
-                statlabel.setVisible(true);
-                statlabel.setText(data.getName()+ " : "+data.getPieValue()+"%");
-            });
-       });
     }
 }
