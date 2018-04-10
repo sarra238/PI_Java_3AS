@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import javafx.beans.value.ObservableValue;
@@ -111,6 +112,7 @@ public class AnnoncesClientController implements Initializable {
             k.comparatorProperty().bind(tabAnn.comparatorProperty());
             tabAnn.setItems(k);
         });
+        
         tabAnn.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
     if (newSelection != null) {
        ObservableList<Annonce> anno;
