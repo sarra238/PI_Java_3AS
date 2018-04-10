@@ -281,34 +281,13 @@ public class AnnoncesClientController implements Initializable {
         primaryStage.show();
         }
     }
-    public boolean rechercher(rechercheAnnonce r) {
-      boolean p=false;
-      AnnonceServices Ann=new AnnonceServices();
-      ArrayList A= (ArrayList) Ann.AfficherAllAnnonceC();
-      Iterator fedi=A.iterator();
-      while(fedi.hasNext()){
-          if(((Annonce)fedi.next()).getNomAnnonce().equals(r.getRecherche())) {
-          } else {
-              p=true;
-          }
-      }
-      
-            return p;
-    }
-
+    
     @FXML
     private void rech(ActionEvent event) {
         rechercheAnnonceServices rAnn=new rechercheAnnonceServices();
         ArrayList A= (ArrayList) rAnn.AfficherAllRAnnonceC();
-        int i=0; boolean p;
-        for (Iterator it = A.iterator(); it.hasNext();) {
-            rechercheAnnonce r = (rechercheAnnonce) it.next(); 
-            p=rechercher(r);
-            if(p==true)
-            {
-                i+=1;
-            }
-        }
+        int i=0;
+        i=rAnn.Count();
         if(i>0){
         Alert alert = new InputValidation().getAlert("Recherche", "Veuillez verifier la liste des annonces! \n Il y a de nouvelles annonces liées à vos anciens recherches");
         alert.showAndWait();

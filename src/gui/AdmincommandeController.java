@@ -16,12 +16,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import org.controlsfx.control.Notifications;
 import services.Serviceconfcommande1;
 import services.ServiceProduit;
 
@@ -54,6 +56,8 @@ public class AdmincommandeController implements Initializable
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -76,6 +80,7 @@ public class AdmincommandeController implements Initializable
 
     @FXML
     private void confirmercommande(ActionEvent event) {
+     Notifications.create().title("Succes").text("Conirmation réussite!").position(Pos.BOTTOM_RIGHT).showConfirm();
     }
 
     @FXML
