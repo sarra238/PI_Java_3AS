@@ -41,5 +41,7 @@
             <Button fx:id="SAV" layoutX="622.0" layoutY="11.0" mnemonicParsing="false" onAction="#Sav" style="-fx-background-color: #03224C;" text="SAV" textFill="WHITE" />
          </children>
       </AnchorPane>
+      <Button fx:id="confirmation" layoutX="8.0" layoutY="357.0" mnemonicParsing="false" onAction="#confirmer" text="reservasion a confirmer" />
+      <Button fx:id="lres" layoutX="8.0" layoutY="321.0" mnemonicParsing="false" onAction="#listReserv" text="liste des Reservations" />
    </children>
 </AnchorPane>

@@ -37,7 +37,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import org.controlsfx.control.NotificationPane;
 import services.EvenementServices;
+import static services.UserService.conn;
+import services.notifEventServices;
 
 public class AffichEventClientController implements Initializable {
  public static int idE ; 
@@ -58,7 +61,6 @@ public class AffichEventClientController implements Initializable {
     private Label DateD;
     @FXML
     private TextField seach;
-    @FXML
     private Label locali;
     @FXML
     private TextField id;
@@ -78,6 +80,12 @@ public class AffichEventClientController implements Initializable {
     private Button Restaurants;
     @FXML
     private Button SAV;
+    @FXML
+    private NotificationPane noti;
+    @FXML
+    private Button notif;
+    @FXML
+    private Label nb;
  /**
      * Initializes the controller class.
      * @param url
@@ -85,8 +93,10 @@ public class AffichEventClientController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+         notifEventServices ns= new notifEventServices();
+        nb.setText(String.valueOf( ns.Count(conn)));
         EvenementServices Ann=new EvenementServices();
-        ArrayList A= (ArrayList) Ann.AfficherAllEvenement();
+        ArrayList A= (ArrayList) Ann.AfficherAllEvenementIn(conn);
         ObservableList ob=FXCollections.observableArrayList(A);
         tabEvent.setItems(ob);
         NomEvent.setCellValueFactory(new PropertyValueFactory<>("nomEvenement"));
@@ -202,5 +212,25 @@ public class AffichEventClientController implements Initializable {
 
     @FXML
     private void Sav(ActionEvent event) {
+    }
+
+    @FXML
+    private void notifs(ActionEvent event) throws IOException {
+        
+     Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+     Parent root2 = FXMLLoader.load(getClass().getResource("AffichEventClient.fxml"));
+     Scene scene2 = new Scene(root2);    
+     primary.setTitle("Evenement!");
+     primary.show();
+     notifEventServices ns= new notifEventServices();
+     System.out.println( ns.Count(conn));
+     Stage primaryStage=new Stage();
+     FXMLLoader loader = new FXMLLoader();
+     loader.setLocation(getClass().getResource("ListNotifEV.fxml"));
+     Parent root = loader.load();      
+     Scene scene = new Scene(root);
+     primaryStage.setTitle("Notifications");
+     primaryStage.setScene(scene);
+     primaryStage.show(); 
     }
 }

@@ -19,24 +19,24 @@
             <AnchorPane id="AnchorPane" layoutX="28.0" layoutY="-5.0" prefHeight="587.0" prefWidth="553.0" style="-fx-background-color: #FFFFFF;" styleClass="mainFxmlClass">
                <children>
                   <Label layoutX="37.0" layoutY="281.0" text="Type :" />
-                  <TextField fx:id="localisation" editable="false" layoutX="198.0" layoutY="250.0" />
-                  <TextField fx:id="Datefin" editable="false" layoutX="198.0" layoutY="224.0" prefHeight="25.0" prefWidth="149.0" />
-                  <TextField fx:id="DateDeb" editable="false" layoutX="198.0" layoutY="197.0" />
-                  <TextField fx:id="desc" alignment="CENTER" editable="false" layoutX="197.0" layoutY="72.0" prefHeight="112.0" prefWidth="149.0">
+                  <TextField fx:id="localisation" disable="true" editable="false" layoutX="198.0" layoutY="250.0" />
+                  <TextField fx:id="Datefin" disable="true" editable="false" layoutX="198.0" layoutY="224.0" prefHeight="25.0" prefWidth="149.0" />
+                  <TextField fx:id="DateDeb" disable="true" editable="false" layoutX="198.0" layoutY="197.0" />
+                  <TextField fx:id="desc" alignment="TOP_LEFT" disable="true" editable="false" layoutX="197.0" layoutY="72.0" prefHeight="112.0" prefWidth="149.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets></TextField>
-                  <TextField fx:id="nomE" editable="false" layoutX="197.0" layoutY="27.0" />
+                  <TextField fx:id="nomE" disable="true" editable="false" layoutX="197.0" layoutY="27.0" />
                   <Label layoutX="40.0" layoutY="254.0" text="Localisation :" />
                   <Label layoutX="44.0" layoutY="228.0" text="Date Fin :" />
                   <Label layoutX="41.0" layoutY="201.0" text="Date Debut :" />
                   <Label layoutX="29.0" layoutY="76.0" text="Description :" />
                   <Label layoutX="25.0" layoutY="31.0" text="Nom Evenement  :" />
                   <TextField fx:id="id" layoutX="434.0" layoutY="358.0" prefHeight="25.0" prefWidth="50.0" visible="false" />
-                  <ImageView fx:id="imgEvent" disable="true" fitHeight="137.0" fitWidth="172.0" layoutX="369.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imgEvent" disable="true" fitHeight="213.0" fitWidth="187.0" layoutX="354.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
                   <BorderPane layoutX="358.0" layoutY="229.0" prefHeight="88.0" prefWidth="195.0">
                      <center>
-                        <RadioButton fx:id="in" mnemonicParsing="false" onAction="#creatpart" text="interessé(e)" BorderPane.alignment="CENTER">
+                        <RadioButton fx:id="in" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#creatpart" text="interessé(e)" BorderPane.alignment="CENTER">
                            <toggleGroup>
                               <ToggleGroup fx:id="part" />
                            </toggleGroup></RadioButton>
@@ -45,16 +45,15 @@
                         <RadioButton fx:id="par" mnemonicParsing="false" onAction="#creatpart" text="participer" toggleGroup="$part" BorderPane.alignment="CENTER" />
                      </bottom>
                      <top>
-                        <RadioButton fx:id="nint" mnemonicParsing="false" onAction="#creatpart" text="n'est pas interessé(e)" toggleGroup="$part" BorderPane.alignment="CENTER" />
+                        <RadioButton fx:id="nint" mnemonicParsing="false" onAction="#creatpart" style="-fx-background-radius: blue;" text="n'est pas interessé(e)" toggleGroup="$part" BorderPane.alignment="CENTER" />
                      </top>
                   </BorderPane>
-                  <TextField fx:id="type" editable="false" layoutX="198.0" layoutY="277.0" />
+                  <TextField fx:id="type" disable="true" editable="false" layoutX="198.0" layoutY="277.0" />
                   <TextField fx:id="Eid" layoutX="94.0" layoutY="346.0" visible="false" />
-                  <Button fx:id="reserver" layoutX="386.0" layoutY="346.0" mnemonicParsing="false" onAction="#reserver" text="Reserver une place " textFill="#351579" textOverrun="CENTER_WORD_ELLIPSIS" />
                </children>
             </AnchorPane>
-            <TextField fx:id="commentText" layoutX="84.0" layoutY="368.0" promptText="commente" />
-            <Button fx:id="CommentBtn" layoutX="256.0" layoutY="369.0" mnemonicParsing="false" onAction="#commenter" text="Commenter" />
+            <TextField fx:id="commentText" layoutX="84.0" layoutY="368.0" promptText="commenter" />
+            <Button fx:id="CommentBtn" layoutX="256.0" layoutY="369.0" mnemonicParsing="false" onAction="#commenter" style="-fx-border-color: blue; -fx-background-radius: blue;" text="Commenter" />
             <TableView fx:id="tableCom" layoutX="43.0" layoutY="404.0" prefHeight="137.0" prefWidth="496.0">
                <columns>
                   <TableColumn fx:id="commentaire" editable="false" prefWidth="360.0" sortType="DESCENDING" sortable="false" text="commentaire" />

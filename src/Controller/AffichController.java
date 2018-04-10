@@ -6,10 +6,15 @@
 package Controller;
 
 import Entities.Evenement;
+import Entities.ReserEv;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -35,7 +41,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.objects.NativeArray;
+import org.controlsfx.control.Notifications;
 import services.EvenementServices;
+import services.ReserEvServices;
+import static services.UserService.conn;
 
 public class AffichController implements Initializable {
 
@@ -85,6 +95,10 @@ public class AffichController implements Initializable {
     private Button Restaurants;
     @FXML
     private Button SAV;
+    @FXML
+    private Button confirmation;
+    @FXML
+    private Button lres;
 
     /**
      * Initializes the controller class.
@@ -94,7 +108,8 @@ public class AffichController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         EvenementServices v =  new  EvenementServices() ;
-        ArrayList arrayList = (ArrayList) v.AfficherAllEvenement();
+        System.out.println(conn);
+        ArrayList arrayList = (ArrayList) v.AfficherAllEvenement(conn);
         ObservableList ob = FXCollections.observableArrayList(arrayList);
         table_view.setItems(ob);
         nom_Evenement.setCellValueFactory(new PropertyValueFactory<>("nomEvenement"));
@@ -125,7 +140,9 @@ public class AffichController implements Initializable {
           File f=new File("C:\\wamp64\\www\\SoukI\\web\\images2\\"+newSelection.getNomImg());
           Image img=new Image(f.toURI().toString());
           imgV.setImage(img);
-    }});  
+    }}); 
+        AffichController a = new AffichController();
+        a.rappel(conn);
     }    
     @FXML
     private void delete(ActionEvent event) {
@@ -273,4 +290,82 @@ public class AffichController implements Initializable {
     @FXML
     private void Sav(ActionEvent event) {
     }
+public void rappel(int conn){
+     DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+     String    datesy=format.format(date);
+     ReserEv r = new ReserEv();
+     ReserEvServices rs= new ReserEvServices();
+      ArrayList<ReserEv> aR= new ArrayList<>();
+     ArrayList<Evenement> av= new ArrayList<>();
+  
+     EvenementServices  aes = new EvenementServices();
+     
+     aR =  (ArrayList<ReserEv>) rs.AfficherAllReseC(conn);
+     
+     
+     for(Iterator<ReserEv> i = aR.iterator(); i.hasNext(); ) {
+  ReserEv item = i.next();
+//if( aes.RechercherEvenementById(item.getIdEv()).getDateDeb()==datesy){
+
+
+        Notifications.create().title("Succes").text("vous avez une formation aujourd'hui!!").position(Pos.BOTTOM_RIGHT).showConfirm();
+  
+}
+}
+    @FXML
+    private void confirmer(ActionEvent event) throws IOException {
+         Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+     Parent root2 = FXMLLoader.load(getClass().getResource("affich.fxml"));
+     Scene scene2 = new Scene(root2); 
+     primary.setTitle("Evenement!");
+     primary.setScene(scene2);
+     primary.show();
+     Stage primaryStage=new Stage();
+     FXMLLoader loader = new FXMLLoader();
+     loader.setLocation(getClass().getResource("ReservEv.fxml"));
+     Parent root = loader.load();      
+     Scene scene = new Scene(root);
+     ObservableList<Evenement> r,f;
+     EvenementServices Ann=new EvenementServices();
+     f=table_view.getItems();
+     r=table_view.getSelectionModel().getSelectedItems();
+     if(r.size()>0){
+     r.stream().forEach((A) -> {
+         ReservEvController controller = loader.getController();
+         controller.iData(A);
+     });  
+     primaryStage.setTitle("reservations");
+     primaryStage.setScene(scene);
+     primaryStage.show();   
+     }}
+
+    @FXML
+    private void listReserv(ActionEvent event) throws IOException {
+     Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+     Parent root2 = FXMLLoader.load(getClass().getResource("affich.fxml"));
+     Scene scene2 = new Scene(root2); 
+     primary.setTitle("Evenement!");
+     primary.setScene(scene2);
+     primary.show();
+     Stage primaryStage=new Stage();
+     FXMLLoader loader = new FXMLLoader();
+     loader.setLocation(getClass().getResource("listResEv.fxml"));
+     Parent root = loader.load();      
+     Scene scene = new Scene(root);
+     ObservableList<Evenement> r,f;
+     EvenementServices Ann=new EvenementServices();
+     f=table_view.getItems();
+     r=table_view.getSelectionModel().getSelectedItems();
+     if(r.size()>0){
+     r.stream().forEach((A) -> {
+         ListResEvController controller = loader.getController();
+         controller.iData(A);
+          
+ 
+     });  
+     primaryStage.setTitle("reservations");
+     primaryStage.setScene(scene);
+     primaryStage.show();   
+     }}
 }

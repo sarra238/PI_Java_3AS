@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import java.sql.Date;
+
 public class Produit {
     public int id;
     private String NomProduit;
@@ -17,6 +19,7 @@ public class Produit {
     private String nomImage;
     private double longitude;
         private int etat;
+        private int idUser;
 
     private double attitude;
 
@@ -62,6 +65,14 @@ public class Produit {
 //        this.Categorie = Categorie;
 //        this.prix = prix;
 //    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
 
     
     
@@ -130,8 +141,36 @@ public Produit( String NomProduit, String Region, String Categorie,int stock, do
         return "Produit{" + "NomProduit=" + NomProduit + ", Region=" + Region + ", Categorie=" + Categorie + ", Stock=" + Stock + '}';
     }
 
+    public Produit(int id, String NomProduit, String Region, String Categorie, int Stock, double Prix, String Description, String DateLancement, String nomImage, double longitude, int etat, double attitude) {
+        this.id = id;
+        this.NomProduit = NomProduit;
+        this.Region = Region;
+        this.Categorie = Categorie;
+        this.Stock = Stock;
+        this.Prix = Prix;
+        this.Description = Description;
+        this.DateLancement = DateLancement;
+        this.nomImage = nomImage;
+        this.longitude = longitude;
+        this.etat = etat;
+        this.attitude = attitude;
+    }
+
   
-    
+    public Produit(int id, String NomProduit, String Region, String Categorie, int Stock, double Prix, String Description, String DateLancement, String nomImage, float longitude, int etat, float attitude) {
+        this.id = id;
+        this.NomProduit = NomProduit;
+        this.Region = Region;
+        this.Categorie = Categorie;
+        this.Stock = Stock;
+        this.Prix = Prix;
+        this.Description = Description;
+        this.DateLancement = DateLancement;
+        this.nomImage = nomImage;
+        this.longitude = longitude;
+        this.etat = etat;
+        this.attitude = attitude;
+    }
 
 
     public String getNomProduit() {
@@ -239,20 +278,7 @@ public void setprodui( String NomProduit, String Region, String Categorie,int st
         this.nomImage = nomImage;
     }
 
-    public Produit(int id, String NomProduit, String Region, String Categorie, int Stock, double Prix, String Description, String DateLancement, String nomImage, double longitude, int etat, double attitude) {
-        this.id = id;
-        this.NomProduit = NomProduit;
-        this.Region = Region;
-        this.Categorie = Categorie;
-        this.Stock = Stock;
-        this.Prix = Prix;
-        this.Description = Description;
-        this.DateLancement = DateLancement;
-        this.nomImage = nomImage;
-        this.longitude = longitude;
-        this.etat = etat;
-        this.attitude = attitude;
-    }
+   
 
     public Produit(String NomProduit, String Region, String Categorie, int Stock, double Prix, String Description, String DateLancement, String nomImage, double longitude, int etat, double attitude) {
         this.NomProduit = NomProduit;
@@ -267,6 +293,33 @@ public void setprodui( String NomProduit, String Region, String Categorie,int st
         this.etat = etat;
         this.attitude = attitude;
     }
+    
+    public Produit(String NomProduit, String Region, String Categorie, int Stock, double Prix, String Description, String nomImage, float longitude, int etat, float attitude) {
+        this.NomProduit = NomProduit;
+        this.Region = Region;
+        this.Categorie = Categorie;
+        this.Stock = Stock;
+        this.Prix = Prix;
+        this.Description = Description;
+        this.nomImage = nomImage;
+        this.longitude = longitude;
+        this.etat = etat;
+        this.attitude = attitude;
+    }
+
+    public Produit(String NomProduit, String Region, String Categorie, int Stock, double Prix, String Description, String nomImage, float longitude, float attitude, int idUser) {
+        this.NomProduit = NomProduit;
+        this.Region = Region;
+        this.Categorie = Categorie;
+        this.Stock = Stock;
+        this.Prix = Prix;
+        this.Description = Description;
+        this.nomImage = nomImage;
+        this.longitude = longitude;
+        this.attitude = attitude;
+        this.idUser = idUser;
+    }
+
     
     
 }

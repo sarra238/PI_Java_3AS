@@ -88,6 +88,31 @@ public class partEvServices implements IpartEv{
         }   
         return 0;
     }
+    public int RechercherNN( int idU,int idE) {
+        try {
+            PreparedStatement pt;
+            String query = "select id,type,idEvenement  from avis where idEvenement='"+idE+"' AND idUser='"+idU+"'";
+            pt=c.prepareStatement(query);
+            ResultSet rs = pt.executeQuery();
+        
+            if (rs.first()) {
+                
+                particEv A=new particEv();
+           
+           
+                A.setId(rs.getInt(1));
+                A.setType(rs.getString(2));
+                
+                 A.setIdEv(rs.getInt(3));
+                 if(  "n'est pas interessé(e)".equals(A.getType())){
+                return 1;}
+                 else return 0;
+            }
+        } catch (SQLException ex) {
+                System.out.println("erreur lors de la recherche de l'evenement " + ex.getMessage());
+        }   
+        return 0;
+    }
      @Override
     public void ModifierPart(particEv a) {
         try {

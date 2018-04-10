@@ -14,7 +14,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -23,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.EvenementServices;
+import utils.InputValidation;
 import utils.Utils;
 
 public class EvenementController implements Initializable {
@@ -38,9 +41,9 @@ public class EvenementController implements Initializable {
     @FXML
     private TextField localisation;
     @FXML
-    private TextField DateDeb;
+    private DatePicker DateDeb;
     @FXML
-    private TextField Datefin;   
+    private DatePicker Datefin;   
     @FXML
     private RadioButton formation;
     @FXML
@@ -56,6 +59,8 @@ public class EvenementController implements Initializable {
     private File f;
     private Image image;
     private String uuid;
+    @FXML
+    private TextField nbMax;
     
     /**
      * Initializes the controller class.
@@ -68,7 +73,7 @@ public class EvenementController implements Initializable {
     }                
     @FXML
     private void ajouterEvenement(ActionEvent event) throws IOException {
-        Evenement e = new Evenement( nomE.getText(),desc.getText(),DateDeb.getText(),Datefin.getText(),localisation.getText());
+        Evenement e = new Evenement() ;
         if (formation.isSelected()) {
             e.setType(formation.getText());
         }      
@@ -78,9 +83,38 @@ public class EvenementController implements Initializable {
         else if  (autres.isSelected()) {
             e.setType(autres.getText());        
         }  
+        e.setNomEvenement(nomE.getText());
+        e.setDateDeb(DateDeb.getValue().toString());
+        e.setDateFin(Datefin.getValue().toString());
+        e.setDescription(desc.getText());
+        e.setLocalisation(localisation.getText());
         e.setNomImg(uuid);
+        e.setNbMax(Integer.parseInt(nbMax.getText()));
         EvenementServices s = new EvenementServices();
-        s.AjouterEvenement(e);
+         if (InputValidation.validTextField(nomE.getText())) {
+            Alert alertNom = new InputValidation().getAlert("Nom Evenement", "Saisissez un nom ");
+            alertNom.showAndWait();
+        } 
+          if (InputValidation.validTextField(desc.getText())) {
+            Alert alertNom = new InputValidation().getAlert("Description", "Saisissez une description ");
+            alertNom.showAndWait();
+        } 
+          if (InputValidation.validTextField(localisation.getText())) {
+            Alert alertNom = new InputValidation().getAlert("localisation ","Saisissez une localisation ");
+            alertNom.showAndWait();
+        } 
+          if (InputValidation.validTextField(DateDeb.getValue().toString())) {
+            Alert alertNom = new InputValidation().getAlert("Date debut", "Saisissez un date de debut");
+            alertNom.showAndWait();
+        } 
+          if (InputValidation.validTextField(Datefin.getValue().toString())) {
+            Alert alertNom = new InputValidation().getAlert("Description", "Saisissez une description ");
+            alertNom.showAndWait();
+        } 
+          if (Datefin.getValue().toString().compareTo(Datefin.getValue().toString())==0){
+        s.AjouterEvenement(e);}
+          else { Alert alertNom = new InputValidation().getAlert("Description", "Saisissez une description ");
+            alertNom.showAndWait();}
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         primaryStage.close();
     }

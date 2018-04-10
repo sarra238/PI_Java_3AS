@@ -8,6 +8,7 @@ package services;
 import utils.MyConnection;
 import Entities.Annonce;
 import Entities.Evenement;
+import Entities.particEv;
 import Interfaces.IEvenement;
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -32,7 +33,7 @@ public class EvenementServices implements IEvenement{
     @Override
     public void AjouterEvenement(Evenement e) {
         PreparedStatement st;
-        String query="insert into evenement (nomEvenement,dateDeb2,dateFin2,description,localisation,type,nomImg,etat,idUser) values(?,?,?,?,?,?,?,?,?)";
+        String query="insert into evenement (nomEvenement,dateDeb2,dateFin2,description,localisation,type,nomImg,etat,idUser,nbMax) values(?,?,?,?,?,?,?,?,?,?)";
         try {
             st= c.prepareStatement(query);
             st.setString(1,e.getNomEvenement() );
@@ -44,6 +45,7 @@ public class EvenementServices implements IEvenement{
             st.setString(7,e.getNomImg());
             st.setInt(8,0);
             st.setInt(9,conn);
+            st.setInt(10,e.getNbMax());
             st.executeUpdate();
             System.out.println("Ajout accompli avec succés");
             
@@ -77,6 +79,113 @@ public class EvenementServices implements IEvenement{
                 if(e==1){
                 Ann.add(A);}
             }
+            return Ann;
+        } 
+        catch (SQLException ex) {
+             System.out.println("erreur lors de l'affichage de tous les evenements! " + ex.getMessage());
+        }
+        return null;
+    }
+   public List<Evenement> AfficherAllEvenementIn(int conn ,String ty) {
+        List<Evenement> Ann= new ArrayList<>();
+        partEvServices pd = new partEvServices();
+        List<particEv> ev= new ArrayList<>();
+        int e;
+        int f;
+        int t;
+        String query="select * from event e inner join avis a on e.idEvenement=a.idEvenement where( a.idUser='"+conn+"') AND (a.type= '"+ty+"' ) ";
+        try {
+            Statement st=c.createStatement();
+            ResultSet rs =st.executeQuery(query);
+            
+            while(rs.next())
+            {
+                Evenement A=new Evenement();
+                A.setEtat(rs.getInt(9));
+                e=A.getEtat();
+            
+                A.setId(rs.getInt(1));
+                t=A.getId();
+                //    f=pd.RechercherNN(id, t);
+                A.setNomEvenement(rs.getString(2));
+                A.setDateDeb(rs.getString(3));
+                A.setDateFin(rs.getString(4));
+                A.setDescription(rs.getString(5));
+                A.setLocalisation(rs.getString(6));
+                A.setType(rs.getString(7));
+                A.setNomImg(rs.getString(8));
+                if(e==1 ){
+                Ann.add(A);
+                }
+            }
+            return Ann;
+        } 
+        catch (SQLException ex) {
+             System.out.println("erreur lors de l'affichage de tous les evenements! " + ex.getMessage());
+        }
+        return null;
+    }
+     public List<Evenement> AfficherAllEvenement(int idU) {
+        List<Evenement> Ann= new ArrayList<>();
+        int e;
+        String query="select id, nomEvenement,dateDeb2,dateFin2,description,localisation,type,nomImg,etat from evenement where idUser='"+idU+"'";
+        try {
+            Statement st=c.createStatement();
+            ResultSet rs =st.executeQuery(query);
+            while(rs.next())
+            {
+                Evenement A=new Evenement();
+                A.setEtat(rs.getInt(9));
+                e=A.getEtat();
+                A.setId(rs.getInt(1));
+                A.setNomEvenement(rs.getString(2));
+                A.setDateDeb(rs.getString(3));
+                A.setDateFin(rs.getString(4));
+                A.setDescription(rs.getString(5));
+                A.setLocalisation(rs.getString(6));
+                A.setType(rs.getString(7));
+                A.setNomImg(rs.getString(8));
+                if(e==1){
+                Ann.add(A);}
+            }
+            return Ann;
+        } 
+        catch (SQLException ex) {
+             System.out.println("erreur lors de l'affichage de tous les evenements! " + ex.getMessage());
+        }
+        return null;
+    }
+   
+    public List<Evenement> AfficherAllEvenementIn(int idU) {
+        List<Evenement> Ann= new ArrayList<>();
+        int e;
+        String query="select id, nomEvenement,dateDeb2,dateFin2,description,localisation,type,nomImg,etat from evenement ";
+        try {
+            Statement st=c.createStatement();
+            ResultSet rs =st.executeQuery(query);
+            partEvServices ps= new partEvServices();
+             List<particEv> nni= new ArrayList<>();
+        
+            while(rs.next())
+            {
+                Evenement A=new Evenement();
+                  
+                A.setEtat(rs.getInt(9));
+                e=A.getEtat();
+                A.setId(rs.getInt(1));
+                System.out.println(A.getId());
+                 int   nn = ps.RechercherNN(idU,A.getId());
+                A.setNomEvenement(rs.getString(2));
+                A.setDateDeb(rs.getString(3));
+                A.setDateFin(rs.getString(4));
+                A.setDescription(rs.getString(5));
+                A.setLocalisation(rs.getString(6));
+                A.setType(rs.getString(7));
+                A.setNomImg(rs.getString(8));
+                if(e==1){
+                    if(nn==0){
+                Ann.add(A);}
+            }}
             return Ann;
         } 
         catch (SQLException ex) {
@@ -158,7 +267,7 @@ public class EvenementServices implements IEvenement{
                 A.setDescription(rs.getString(5));
                 A.setLocalisation(rs.getString(6));
                 A.setType(rs.getString(7));
-                A.setIdUser(rs.getInt(rs.getString(8)));
+                A.setIdUser(rs.getInt(8));
                 return A;
             }
         } catch (SQLException ex) {

@@ -13,6 +13,24 @@ public class ReserEv {
     private String mail;  
     private String prenom;
     private int tel;
+    private int etat;
+    private String identifiant;
+
+    public String getIdentifiant() {
+        return identifiant;
+    }
+
+    public void setIdentifiant(String identifiant) {
+        this.identifiant = identifiant;
+    }
+
+    public int getEtat() {
+        return etat;
+    }
+
+    public void setEtat(int etat) {
+        this.etat = etat;
+    }
 
     public ReserEv() {
     }

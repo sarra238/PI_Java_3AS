@@ -68,8 +68,8 @@ id.setText(Integer.toString(e.getId()));
 nomE.setText(e.getNomEvenement());
         desc.setText(e.getDescription());
 localisation.setText(e.getLocalisation());
-DateDeb.setText(e.getDateDeb());
-Datefin.setText(e.getDateFin());
+DateDeb.setText(e.getDateDeb().toString());
+Datefin.setText(e.getDateFin().toString());
         switch (e.getType()) {
             case "formation":
                 formation.setSelected(true);
@@ -86,11 +86,11 @@ Datefin.setText(e.getDateFin());
         }
         f=new File("C:\\wamp64\\www\\SoukI\\web\\images2\\"+e.getNomImg());
         Image img=new Image(f.toURI().toString());
-        imgEvent.setImage(img);
-}
+        imgEvent.setImage(img);}
+
     @FXML
     private void modifier(ActionEvent event) throws IOException {
-         Evenement e = new Evenement( nomE.getText(),
+        Evenement e = new Evenement( nomE.getText(),
                 desc.getText(),
                 DateDeb.getText(),
                 Datefin.getText(),

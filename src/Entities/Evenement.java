@@ -17,6 +17,17 @@ public class Evenement {
       private String NomImg;
       private int etat;
       private int IdUser;
+      private int nbMax;
+
+    public int getNbMax() {
+        return nbMax;
+    }
+
+    public void setNbMax(int nbMax) {
+        this.nbMax = nbMax;
+    }
+      
+      
 
     public Evenement( String nomEvenement, String dateDeb, String dateFin, String Description, String localisation ) {
 
@@ -143,6 +154,10 @@ public class Evenement {
     @Override
     public String toString() {
         return "Evenement{" + "id=" + id + ", nomEvenement=" + nomEvenement + ", dateDeb=" + dateDeb + ", dateFin=" + dateFin + ", Description=" + Description + ", localisation=" + localisation + ", type=" + type + '}';
+    }
+
+    public String getText() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
