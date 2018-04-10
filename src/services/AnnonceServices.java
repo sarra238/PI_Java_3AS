@@ -7,6 +7,7 @@ package services;
 
 import utils.MyConnection;
 import Entities.Annonce;
+import Entities.rechercheAnnonce;
 import Interfaces.IAnnonce;
 import java.sql.*;
 import java.util.ArrayList;
@@ -253,7 +254,24 @@ public class AnnonceServices implements IAnnonce {
             System.out.println("erreur lors de la mise à jour del'etat de l'evenement " + ex.getMessage());
         }     
     }
-    
+    public Annonce RechercherAnnonceByName2(rechercheAnnonce nom) {
+        try {
+            PreparedStatement ps;
+            String query = "select nomAnnonce from annonce where nomAnnonce='"+nom.getRecherche()+"' and idUser='"+nom.getIdUser()+"' and etat='"+1+"'  ";
+            ps= c.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next())
+            {
+                Annonce A=new Annonce();
+                A.setNomAnnonce(rs.getString(1));
+                return A;
+            }    
+        }
+        catch (SQLException ex) {
+               System.out.println("erreur lors de la recherche de l'annonce " + ex.getMessage());
+        }   
+      return null;       
+    }
    
 }
 

@@ -6,10 +6,12 @@
 package Controller;
 
 import Entities.Annonce;
+import Entities.rechercheAnnonce;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -25,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -38,10 +41,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import services.AnnonceServices;
+import services.rechercheAnnonceServices;
+import utils.InputValidation;
 
 public class AnnoncesClientController implements Initializable {
     
     public static Annonce d ;
+    public static TableView<Annonce> Ak;
     
     @FXML
     private TableView<Annonce> tabAnn;
@@ -81,6 +87,10 @@ public class AnnoncesClientController implements Initializable {
     private Button SAV;
     @FXML
     private Hyperlink détailBtn;
+    @FXML
+    private Label nbrText;
+    @FXML
+    private Button RechercheBtn;
 
     /**
      * Initializes the controller class.
@@ -111,8 +121,15 @@ public class AnnoncesClientController implements Initializable {
             SortedList<Annonce> k = new SortedList<>(fil);
             k.comparatorProperty().bind(tabAnn.comparatorProperty());
             tabAnn.setItems(k);
+            Ak=tabAnn;
+            System.out.println(Ak.getItems().size());
+        if(Ak.getItems().size()==0){
+            rechercheAnnonce r=new rechercheAnnonce();
+            r.setRecherche(seach.getText());
+            rechercheAnnonceServices rs=new rechercheAnnonceServices();
+            rs.AjouterRAnnonce(r);
+        }
         });
-        
         tabAnn.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
     if (newSelection != null) {
        ObservableList<Annonce> anno;
@@ -133,6 +150,12 @@ public class AnnoncesClientController implements Initializable {
           }
           d=newSelection;
     }});  
+        rechercheAnnonceServices rAnn=new rechercheAnnonceServices();
+        int i=rAnn.Count();
+        if(i>0){
+        nbrText.setVisible(true);
+        nbrText.setText(Integer.toString(i));
+        }
     }
 
     @FXML
@@ -258,6 +281,47 @@ public class AnnoncesClientController implements Initializable {
         primaryStage.setScene(scene);
         primaryStage.show();
         }
+    }
+    public boolean rechercher(rechercheAnnonce r) {
+      boolean p=false;
+      AnnonceServices Ann=new AnnonceServices();
+      ArrayList A= (ArrayList) Ann.AfficherAllAnnonceC();
+      Iterator fedi=A.iterator();
+      while(fedi.hasNext()){
+          if(((Annonce)fedi.next()).getNomAnnonce().equals(r.getRecherche())) {
+          } else {
+              p=true;
+          }
+      }
+      
+            return p;
+    }
+
+    @FXML
+    private void rech(ActionEvent event) {
+        rechercheAnnonceServices rAnn=new rechercheAnnonceServices();
+        ArrayList A= (ArrayList) rAnn.AfficherAllRAnnonceC();
+        int i=0; boolean p;
+        for (Iterator it = A.iterator(); it.hasNext();) {
+            rechercheAnnonce r = (rechercheAnnonce) it.next(); 
+            p=rechercher(r);
+            if(p==true)
+            {
+                i+=1;
+            }
+        }
+        if(i>0){
+        Alert alert = new InputValidation().getAlert("Recherche", "Veuillez verifier la liste des annonces! \n Il y a de nouvelles annonces liées à vos anciens recherches");
+        alert.showAndWait();
+          for (Iterator it = A.iterator(); it.hasNext();) {
+            rechercheAnnonce r = (rechercheAnnonce) it.next(); 
+            rAnn.SupprimerAnnonceA(r);
+          }
+        nbrText.setText(Integer.toString(0));
+        nbrText.setVisible(false);
+        
+        }
+        System.out.println(i);
     }
     
     

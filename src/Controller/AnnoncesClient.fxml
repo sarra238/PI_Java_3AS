@@ -37,9 +37,11 @@
                   <Label fx:id="type" layoutX="217.0" layoutY="247.0" prefHeight="18.0" prefWidth="76.0" text="Type" visible="false" />
                   <Label fx:id="prix" layoutX="347.0" layoutY="247.0" text="Prix Reduction" visible="false" />
                   <TextField fx:id="seach" layoutX="10.0" layoutY="59.0" promptText="Recherche" />
+                  <Label fx:id="nbrText" layoutX="110.0" layoutY="5.0" text="Nbr" visible="false" />
                </children>
             </AnchorPane>
             <Hyperlink fx:id="AvisBtn" layoutY="438.0" onAction="#Avis" text="Donner Avis sur le service" textFill="#f5f5f5" />
+            <Button fx:id="RechercheBtn" layoutX="59.0" layoutY="66.0" mnemonicParsing="false" onAction="#rech" style="-fx-background-color: #03224C;" text="Recherche " textFill="WHITE" />
          </children>
       </AnchorPane>
       <Hyperlink fx:id="CommentBtn" layoutX="172.0" layoutY="433.0" onAction="#comment" text="Commenter" textFill="#f5f5f5" />
