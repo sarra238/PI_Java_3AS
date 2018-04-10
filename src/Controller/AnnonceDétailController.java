@@ -156,9 +156,9 @@ public class AnnonceDétailController implements Initializable {
         fo=tableCom.getItems();
         r=tableCom.getSelectionModel().getSelectedItems();
         if(r.size()>0){ //&& user.equals(conn)){
-           for(CommentAnn A : r){
-            Ann.SupprimerCommentA2(A);
-           }
+            r.stream().forEach((A) -> {
+                Ann.SupprimerCommentA2(A);
+            });
         }
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("AnnonceDétail.fxml"));

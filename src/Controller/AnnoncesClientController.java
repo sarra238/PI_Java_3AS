@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import javafx.beans.value.ObservableValue;
@@ -320,6 +319,10 @@ public class AnnoncesClientController implements Initializable {
         nbrText.setText(Integer.toString(0));
         nbrText.setVisible(false);
         
+        }
+        else {
+        Alert alert = new InputValidation().getAlert("Recherche", "Les annonces concernant les produits que vous chercher n'existe pas!");
+        alert.showAndWait();
         }
         System.out.println(i);
     }
