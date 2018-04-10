@@ -74,8 +74,6 @@ public class AnnonceDétailController implements Initializable {
     @FXML
     private TableColumn<CommentAnn, String> date;
     @FXML
-    private TableColumn<CommentAnn, Integer> user;
-    @FXML
     private Button SuppComBtn;
 
     /**
@@ -100,7 +98,6 @@ public class AnnonceDétailController implements Initializable {
         tableCom.setItems(observablelist);
         commentaire.setCellValueFactory(new PropertyValueFactory<>("commentAnn"));
         date.setCellValueFactory(new PropertyValueFactory<>("d"));
-        user.setCellValueFactory(new PropertyValueFactory<>("idUser"));
     }    
 
     @FXML
