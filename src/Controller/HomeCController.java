@@ -67,12 +67,18 @@ public class HomeCController implements Initializable {
     }
 
     @FXML
-    private void Produits(ActionEvent event) {
+    private void Produits(ActionEvent event) throws IOException {
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/AffichageProduit.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Produits!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     @FXML
     private void Event(ActionEvent event) throws IOException {
-         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("AffichEventClient.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Evenement!");

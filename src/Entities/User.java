@@ -23,7 +23,21 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String fname, String lname, String email, int phoneNumber, String gender, String role, int age, String address) {
+     public User(String username, String password, String fname, String lname, String email, int phoneNumber, String gender, String role, int age, String address) {
+        this.username = username;
+        this.password = password;
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.role = role;
+        this.age = age;
+        this.address = address;
+    }
+
+    public User(int id, String username, String password, String fname, String lname, String email, int phoneNumber, String gender, String role, int age, String address) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.fname = fname;

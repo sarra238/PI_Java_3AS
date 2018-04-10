@@ -14,9 +14,11 @@ import utils.MyConnection;
 import org.mindrot.jbcrypt.BCrypt;
 
 
+
 public class UserService implements IUser{
     
     private final Connection c = MyConnection.getInstance().getConnection();
+     private static  UserService instance;
     public static int conn ; 
     
     @Override
@@ -204,5 +206,13 @@ public class UserService implements IUser{
         }   
         return null;
      }
+      public static UserService getInstance()
+    {
+        if (instance == null) {
+            instance = new  UserService();
+        }
+        return instance; 
+    }
+    
     
 }
