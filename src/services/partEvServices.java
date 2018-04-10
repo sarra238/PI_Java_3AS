@@ -145,4 +145,21 @@ public class partEvServices implements IpartEv{
         }  
         return i;
     }
+    
+    public int CountAvis2(String id,int j) {
+        int i=0;
+        try {
+            PreparedStatement pt;
+            String query = "select * from avis where type='"+id+"' and idEvenement='"+j+"'";
+            pt=c.prepareStatement(query);
+            ResultSet rs = pt.executeQuery();
+            while(rs.next()){
+                i+=1;
+            }
+        }
+         catch (SQLException ex) {
+            System.out.println("Erreur " + ex.getMessage());
+        }  
+        return i;
+    }
 }

@@ -37,6 +37,6 @@ public class StatController implements Initializable {
              new PieChart.Data("Exposition", j),
              new PieChart.Data("autres", k)
         );
-        pie.setData(pieE);   // TODO
+        pie.setData(pieE);  
     }    
 }
