@@ -151,7 +151,7 @@ if ( pfile != null )
              original.setLongitude(f);
              
              if(file==0)
-             {ServiceProduit.updateProduit(original,original.getId());
+             {ServiceProduit.updateProduit(original);
               Alert alert = new Alert(AlertType.INFORMATION);
 alert.setTitle("success");
 alert.setHeaderText(" Produit Modifié");
@@ -164,10 +164,10 @@ alert.showAndWait();
                 
              if(file==1)
              { original.getNomImage();
-             ServiceProduit.updateProduit(original,original.getId());
+             ServiceProduit.updateProduit(original);
              File pDir = new File("src/"+original.getNomImage());
               copier( pfile,pDir) ;
-                 ServiceProduit.updateProduit(original,original.getId());
+                 ServiceProduit.updateProduit(original);
                  file = 0;
                  
 //         final URL imageURL = getClass().getResource(original.getImg()); 

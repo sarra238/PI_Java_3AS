@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Entities.Produit;
+import static services.UserService.conn;
 import utils.MyConnection;
 /**
  *
@@ -25,31 +26,8 @@ public class ServiceProduit {
 
     public static void insererProduit(Produit o) {
         try {
-            String req = "Insert into produit values(?,?,?,?,?,?,?,CURRENT_DATE,?,?,0,?,?)";
+            String req = "Insert into produit (NomProduit,Region,Categorie,Stock,Prix,Description,nomImage,longitude,attitude,etat,idUser,DateLancement) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 // id_objet 	id_user 	nom_objet 	categorie 	img 	lieu 	description 	type 
-            PreparedStatement ste = ds.getConnection().prepareStatement(req);
-            ste.setInt(1, o.getId());
-            ste.setString(2, o.getNomProduit());
-            ste.setString(3, o.getRegion());
-            ste.setString(4, o.getCategorie());
-            ste.setInt(5, o.getStock());
-            ste.setDouble(6, o.getPrix());
-            ste.setString(7, o.getDescription());
-            ste.setString(8, o.getNomImage());
-            ste.setDouble(9, o.getLongitude());
-            ste.setDouble(10, o.getAttitude());
-            ste.setInt(11, o.getIdUser());
-            ste.executeUpdate();
-        } catch (SQLException ex) {
-            
-            System.out.println(ex);
-        }
-    }
-    
-    public static void updateProduit(Produit o, int id) {
-        try {
-            String req = "UPDATE Produit SET nomproduit=?,region=?, categorie=?,stock =?,prix=?,description=?,datelancement=CURRENT_DATE,nomimage=?,longitude=?,etat=1,attitude=? where id=?";
-
             PreparedStatement ste = ds.getConnection().prepareStatement(req);
             ste.setString(1, o.getNomProduit());
             ste.setString(2, o.getRegion());
@@ -60,7 +38,32 @@ public class ServiceProduit {
             ste.setString(7, o.getNomImage());
             ste.setDouble(8, o.getLongitude());
             ste.setDouble(9, o.getAttitude());
-             ste.setInt(10, o.getId());
+            ste.setInt(10,0);
+            ste.setInt(11,conn);
+            ste.setString(12,o.getDateLancement());
+            ste.executeUpdate();
+        } catch (SQLException ex) {
+            
+            System.out.println(ex);
+        }
+    }
+    
+    public static void updateProduit(Produit o) {
+        try {
+            String req = "UPDATE Produit SET nomproduit=?,region=?, categorie=?,stock =?,prix=?,description=?,datelancement=?,nomImage=?,longitude=?,etat=?,attitude=? where id='"+o.getId()+"'and idUser='"+conn+"'";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+            ste.setString(1, o.getNomProduit());
+            ste.setString(2, o.getRegion());
+            ste.setString(3, o.getCategorie());
+            ste.setInt(4, o.getStock());
+            ste.setDouble(5, o.getPrix());
+            ste.setString(6, o.getDescription());
+            ste.setString(7, o.getDateLancement());
+            ste.setString(8, o.getNomImage());
+            ste.setDouble(9, o.getLongitude());
+            ste.setInt(10, 1);
+            ste.setDouble(11, o.getAttitude());
 
             ste.executeUpdate();
         } catch (SQLException ex) {
@@ -71,6 +74,18 @@ public class ServiceProduit {
 public static void deleteProduit(int id) {
         try {
             String req = "delete from Produit where id=?";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+
+            ste.setInt(1, id);
+            ste.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MyConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+public static void deleteProduit2(int id) {
+        try {
+            String req = "delete from Produit where id=? and idUser='"+conn+"'";
 
             PreparedStatement ste = ds.getConnection().prepareStatement(req);
 
