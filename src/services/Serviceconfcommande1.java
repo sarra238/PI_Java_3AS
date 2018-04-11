@@ -5,9 +5,10 @@
  */
 package services;
 
-import utils.MyConnection;
+
 import static utils.util.pr;
 import static utils.util.user;
+import Entities.Produit;
 import Entities.confcommande;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import utils.MyConnection;
 
 
 
@@ -115,7 +117,7 @@ public class Serviceconfcommande1 {
                
         int nomProduit = rs.getInt(4);
         //  int idUser=rs.getInt(5);
-                       ServiceProduit daoProduit = ServiceProduit.getInstance();
+                       ServiceProduitm daoProduit = ServiceProduitm.getInstance();
                  UserService Use = UserService.getInstance();
                
               //  prod =daoUser.findProduitById(id);

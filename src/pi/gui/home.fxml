@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pi.controller.HomeController">
+   <children>
+      <ImageView fitHeight="612.0" fitWidth="900.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Media/home.png" />
+         </image>
+      </ImageView>
+      <HBox fx:id="produits" layoutX="155.0" layoutY="214.0" onMouseClicked="#produits" prefHeight="100.0" prefWidth="200.0" />
+      <TextField fx:id="chercher" layoutX="418.0" layoutY="25.0" prefHeight="51.0" prefWidth="181.0" />
+   </children>
+</AnchorPane>

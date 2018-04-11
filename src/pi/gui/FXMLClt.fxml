@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXScrollPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" fx:id="pane" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="pi.controller.FXMLCltController">
+   <children>
+      <ImageView fx:id="panier" fitHeight="634.0" fitWidth="927.0" layoutY="-4.0" onDragDetected="#voirpanier" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Media/tous_les_produits.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="cherchernom" layoutX="24.0" layoutY="243.0" prefHeight="25.0" prefWidth="161.0" promptText="chercher nom" />
+      <JFXScrollPane layoutX="271.0" layoutY="228.0" prefHeight="382.0" prefWidth="360.0">
+         <children>
+            <JFXListView fx:id="liste" prefHeight="350.0" prefWidth="348.0" style="-fx-background-color: white;" stylesheets="@../../../../../../Desktop/PiE404-JAVA/src/com/esprit/EspritEntreAid/GUI/images/style_liste.css" />
+         </children>
+      </JFXScrollPane>
+      <Pane fx:id="panevoir" layoutX="666.0" layoutY="235.0" opacity="0.7" prefHeight="315.0" prefWidth="226.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="-1.0" layoutY="14.0" text="Nom :">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutY="59.0" text="Categorie :">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="1.0" layoutY="110.0" text="Date">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="1.0" layoutY="273.0" text="Description :">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imagee" fitHeight="46.0" fitWidth="154.0" layoutX="35.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="2.0" layoutY="155.0" text="Prix">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="2.0" layoutY="213.0" text="Stock">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="nom" layoutX="128.0" layoutY="14.0" text="Nom :">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="categorie1" layoutX="128.0" layoutY="59.0" text="Nom :">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="date1" layoutX="133.0" layoutY="109.0" text="Nom :">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="prix" layoutX="133.0" layoutY="154.0" text="Nom :">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="stock" layoutX="132.0" layoutY="218.0" text="Nom :">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Text fx:id="description" layoutX="134.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <Button fx:id="contacter" layoutX="45.0" layoutY="333.0" mnemonicParsing="false" onAction="#contacter" prefHeight="33.0" prefWidth="137.0" text="Cantacter" />
+         </children>
+      </Pane>
+      <JFXDatePicker fx:id="date" layoutX="206.0" layoutY="32.0" prefHeight="46.0" prefWidth="161.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="categorie" layoutX="432.0" layoutY="32.0" prefHeight="46.0" prefWidth="168.0" promptText="Categorie" style="-fx-background-color: white;" />
+      <VBox fx:id="rechercher" layoutX="666.0" layoutY="40.0" onMouseClicked="#rechercher" prefHeight="53.0" prefWidth="199.0" />
+      <HBox layoutX="251.0" layoutY="155.0" onMouseClicked="#tous" prefHeight="60.0" prefWidth="406.0" />
+      <Button fx:id="btncart" layoutX="40.0" layoutY="550.0" mnemonicParsing="false" onAction="#add_to_cart" prefHeight="33.0" prefWidth="131.0" text="add to cart" />
+      <Label fx:id="Label" layoutX="47.0" layoutY="437.0" prefHeight="60.0" prefWidth="168.0" text="Label" />
+      <Button fx:id="btnaffichecart" layoutX="39.0" layoutY="503.0" mnemonicParsing="false" onAction="#page_précédente" prefHeight="33.0" prefWidth="131.0" text="afficher votre panier" />
+   </children>
+</AnchorPane>

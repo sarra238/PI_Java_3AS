@@ -5,269 +5,442 @@
  */
 package services;
 
-import utils.MyConnection;
-import Entities.Produit;
-import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import Entities.Produit;
+import utils.MyConnection;
 /**
  *
- * @author mmmm
+ * @author dell
  */
 public class ServiceProduit {
     
-     Connection con=MyConnection.getInstance().getConnection();
-     private Statement ste;     
-     private Produit p;
-     private static ServiceProduit instance;
+       static MyConnection ds = MyConnection.getInstance();
 
-public ServiceProduit() {
-    }
-
-    
-   
-    public static ServiceProduit getInstance()
-    {
-        if (instance == null) {
-            instance = new ServiceProduit();
-        }
-        return instance; 
-    }
-    
-public ObservableList<Produit> afficher()  throws SQLException
-  {
-  ObservableList<Produit> ls = FXCollections.observableArrayList();
-   
-    String sql="SELECT * FROM produit";
-    ste=con.createStatement();
-    ResultSet rs=ste.executeQuery(sql);
-    while(rs.next())
-    {
-    p=new Produit(rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getDouble(6),rs.getString(7),rs.getDouble(10),rs.getDouble(12));
-    ls.add(p); 
-    }
-    return ls;
-    
-    
-}
-//*****************************************************************
-public void approuver(double longitude) {
-
+    public static void insererProduit(Produit o) {
         try {
-            String req = ("update produit set Etat=1 where longitude="+longitude);
-            PreparedStatement pre = con.prepareStatement(req);
-            pre.executeUpdate();
-            System.out.println("ajout ");
+            String req = "Insert into produit values(?,?,?,?,?,?,?,CURRENT_DATE,?,?,0,?,?)";
+// id_objet 	id_user 	nom_objet 	categorie 	img 	lieu 	description 	type 
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+            ste.setInt(1, o.getId());
+            ste.setString(2, o.getNomProduit());
+            ste.setString(3, o.getRegion());
+            ste.setString(4, o.getCategorie());
+            ste.setInt(5, o.getStock());
+            ste.setDouble(6, o.getPrix());
+            ste.setString(7, o.getDescription());
+            ste.setString(8, o.getNomImage());
+            ste.setDouble(9, o.getLongitude());
+            ste.setDouble(10, o.getAttitude());
+            ste.setInt(11, o.getIdUser());
+            ste.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
+            
+            System.out.println(ex);
         }
-
     }
-////************************************************************************
-public void approuverdelate(double Prix) 
-{
-
+    
+    public static void updateProduit(Produit o, int id) {
         try {
-            String req = ("update produit set Etat=0 where Prix="+ Prix);
-            PreparedStatement pre = con.prepareStatement(req);
-            pre.executeUpdate();
-            System.out.println("supmeryem ");
+            String req = "UPDATE Produit SET nomproduit=?,region=?, categorie=?,stock =?,prix=?,description=?,datelancement=CURRENT_DATE,nomimage=?,longitude=?,etat=1,attitude=? where id=?";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+            ste.setString(1, o.getNomProduit());
+            ste.setString(2, o.getRegion());
+            ste.setString(3, o.getCategorie());
+            ste.setInt(4, o.getStock());
+            ste.setDouble(5, o.getPrix());
+            ste.setString(6, o.getDescription());
+            ste.setString(7, o.getNomImage());
+            ste.setDouble(8, o.getLongitude());
+            ste.setDouble(9, o.getAttitude());
+             ste.setInt(10, o.getId());
+
+            ste.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println(ex);
         }
-
     }
-////************************************************************************
-//public void approuverid(String NomProduit) 
-//{
-//
-//        try {
-//            String req = ("update produit set Etat=0 where NomProduit="+ NomProduit);
-//            PreparedStatement pre = con.prepareStatement(req);
-//            pre.executeUpdate();
-//            System.out.println("supmeryem ");
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//    }
-////***********************************************************************
+    
+public static void deleteProduit(int id) {
+        try {
+            String req = "delete from Produit where id=?";
 
- public ObservableList<Produit> afficherCommande()  throws SQLException
-  {
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+
+            ste.setInt(1, id);
+            ste.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MyConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+ public static Produit selectProduit(int id) {
+        Produit o = new Produit();
+        try {
+            String req = "select * from Produit where id=? and etat=0";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+            ste.setInt(1, id);
+
+            ResultSet resultat = ste.executeQuery();
+            resultat.last();
+            o = new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getDouble("attitude"));
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return o;
+    }
+   public static List<Produit> selectAllProduit() {
+        List<Produit> list = new ArrayList<>();
+        try {
+            String req = "select * from Produit";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+       
+
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+
+                list.add(new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getFloat("attitude")));
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return list;
+    }
+   
+    public static List<Produit> selectAllProduitE (int e){
+        List<Produit> list = new ArrayList<>();
+        try {
+            String req = "select * from Produit where etat=?";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+            ste.setInt(1, e);
+       
+
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+
+                list.add(new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getDouble("attitude")));
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return list;
+    }
+    
+    
+     public static List<Produit> selectLesProduitE ( ){
+        List<Produit> list = new ArrayList<>();
+        try {
+            String req = "select * from Produit ";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+            
+           
+
+
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+
+                list.add(new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getDouble("attitude")));
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return list;
+    }
+    
+          public static List<Produit> searchcategdate(int e , int id , String c ,Date d){
+        List<Produit> list = new ArrayList<>();
+        try {
+            String req = "select * from Produit where  categorie=? and dateLancement=? ";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+            
+            ste.setString(3, c);
+            ste.setDate(4, d);
+
+
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+
+                list.add(new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getDouble("attitude")));
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return list;
+    }
+          
+                public static List<Produit> searchdate( Date c ){
+        List<Produit> list = new ArrayList<>();
+        try {
+            String req = "select * from Produit where  dateLancement=?  ";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+          
+            ste.setDate(3, c);
+
+
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+
+                list.add(new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getDouble("attitude")));
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return list;
+    }
+                
+                      public static List<Produit> searchcateg( String c ){
+        List<Produit> list = new ArrayList<>();
+        try {
+            String req = "select * from Produit where etat=? and idUser!=? and  categorie=?  ";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+          
+            ste.setString(3, c);
+
+
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+
+                list.add(new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getDouble("attitude")));
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return list;
+    }
+                      
+                      
+     public static List<Produit> selectMesProduitE (int e , int id ){
+        List<Produit> list = new ArrayList<>();
+        try {
+            String req = "select * from Produit where etat=? and idUser=?";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+            ste.setInt(0, e);
+            ste.setInt(2, id);
+
+
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+
+                list.add(new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getDouble("attitude")));
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return list;
+    }
+     
+     public static List<Produit> searchcateg1( String c ){
+        List<Produit> list = new ArrayList<>();
+        try {
+            String req = "select * from Produit where etat=? and idUser=? and  categorie=?  ";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
       
-  ObservableList<Produit> ls = FXCollections.observableArrayList();
-   
-    String sql="SELECT * FROM produit where etat=1";
-    ste=con.createStatement();
-    ResultSet rs=ste.executeQuery(sql);
-    while(rs.next())
-    {
-    p=new Produit(rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getDouble(6),rs.getString(7),rs.getDouble(10),rs.getDouble(12));
-    ls.add(p); 
+            ste.setString(3, c);
+
+
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+
+                list.add(new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getDouble("attitude")));
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return list;
     }
-    return ls;
-    
-    
+     
+     public static List<Produit> searchcategdate1( String c ,Date d){
+        List<Produit> list = new ArrayList<>();
+        try {
+            String req = "select * from Produit where etat=? and idUser=? and  categorie=? and dateLancement=? ";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+         
+            ste.setString(3, c);
+            ste.setDate(4, d);
+
+
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+
+                list.add(new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getDouble("attitude")));
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return list;
+    }
+     
+     
+     public static List<Produit> searchdate1( Date c ){
+        List<Produit> list = new ArrayList<>();
+        try {
+            String req = "select * from Produit where  and  dateLancement=?  ";
+
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+        
+            ste.setDate(3, c);
+
+
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+
+                list.add(new Produit(resultat.getInt("id"),
+                    resultat.getString("nomProduit"),
+                    resultat.getString("region"),
+                    resultat.getString("categorie"),
+                    resultat.getInt("stock"),
+                    resultat.getDouble("prix"),
+                    resultat.getString("description"),
+                    resultat.getString("dateLancement"),
+                    resultat.getString("nomImage"),
+                    resultat.getDouble("longitude"), 
+                    resultat.getInt("etat"),
+                    resultat.getDouble("attitude")));
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return list;
+    }
+     //******************************************************
 }
-//********************************************************************
 
  
-  public ObservableList<Produit> afficherproduitcommande()  throws SQLException
-  {
-  ObservableList<Produit> ls = FXCollections.observableArrayList();
-   String sql="SELECT * FROM produit where etat=1";
-    
-    ste=con.createStatement();
-    ResultSet rs=ste.executeQuery(sql);
-    while(rs.next())
-    {
-  p=new Produit(rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(6));
-    ls.add(p); 
-    }
-    return ls;
-   
-}
- public Produit findProduitById(int id) throws SQLException
-    {
-        Produit owner = new Produit();
-        int count = 0;
-           
-        String requete="select * from Produit where id="+id;
-        try{
-            Statement st = con.createStatement();
-            ResultSet rsl = st.executeQuery(requete);
-            while(rsl.next())
-            {
-              //  owner.set(rsl.getInt(1));
-                owner.setNomProduit(rsl.getString(2));
-                owner.setRegion(rsl.getString(3));
-                owner.setCategorie(rsl.getString(4));
-//                owner.setDate_naissance(rsl.getDate(5));
-                owner.setStock(rsl.getInt(5));
-            //    owner.setPrix(rsl.getDouble(5));
-//            owner.setNum_tel(rsl.getInt(8));
-//            owner.setLogin(rsl.getString(9));
-//            owner.setPassword(rsl.getString(10));
-             
-                count++;
-            }
-           if(count == 0){
-                return null;
-           }else{
-               return owner;
-           }  
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-   }
-    public ObservableList<Produit> search_nom(String nomProduit) {
-        ObservableList<Produit> ls = FXCollections.observableArrayList();
-        try {
-            String requete = "select * from Produit where nomProduit LIKE '%" + nomProduit + "%'";
-          // String requete = "select * from patisserie where nom_patisserie LIKE '%" + nom_patisserie + "%' && activite LIKE '%" + activite + "%' && adresse_patisserie LIKE '%" + adresse_patisserie + "%'";
-
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(requete);
-
-           
-                while(rs.next())
-    {
-    p=new Produit(rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getDouble(6),rs.getString(7),rs.getDouble(10),rs.getDouble(12));
-    ls.add(p); 
-    }
-  
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        return ls;
-    }
-//*************************
-
-public Produit findProduitByNom(String NomProduit) throws SQLException
-    {
-        Produit owner = new Produit();
-        int count = 0;
-           
-        String requete="select * from Produit where NomProduit="+NomProduit;
-        try{
-            Statement st = con.createStatement();
-            ResultSet rsl = st.executeQuery(requete);
-            while(rsl.next())
-            {
-              //  owner.set(rsl.getInt(1));
-                owner.setNomProduit(rsl.getString(2));
-                owner.setRegion(rsl.getString(3));
-                owner.setCategorie(rsl.getString(4));
-//                owner.setDate_naissance(rsl.getDate(5));
-                owner.setStock(rsl.getInt(5));
-            //    owner.setPrix(rsl.getDouble(5));
-//            owner.setNum_tel(rsl.getInt(8));
-//            owner.setLogin(rsl.getString(9));
-//            owner.setPassword(rsl.getString(10));
-             
-                count++;
-            }
-           if(count == 0){
-                return null;
-           }else{
-               return owner;
-           }  
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-   }
-
-
-
-
-
-
-
-
-
-
-
-}
-////public void ajouP(Produit u) 
-////    {
-////        try {
-////            String req = "INSERT INTO `Produit`(`id`, `NomProduit`, `Region`, `Categorie`, `Stock`, `Prix`, `DateLancement`, `nomImage`, `longitude`, `etat`, `attitude`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-////            PreparedStatement ste;
-////            ste= con.prepareStatement(req);
-////              //         ste.setInt(1, u.getId());
-////
-////            ste.setInt(1, u.getId());
-////           // String m =u.getPassword(); 
-////      ///      String hashed = BCrypt.hashpw(m, BCrypt.gensalt());
-////        ste.setString(2,u.getNomProduit() );
-////            ste.setString(3, u.getRegion());
-////            ste.setString(4, u.getCategorie());
-////            ste.setInt(5, u.getStock());
-////            ste.setDouble(6, u.getPrix());
-////            ste.setString(7, u.getDateLancement());
-////            ste.setString(8, u.getNomImage());
-////            ste.setDouble(9, u.getLongitude());
-////            ste.setInt(10, u.getEtat());
-////          ste.setDouble(11, u.getAttitude());
-////
-////            ste.executeUpdate();
-////        }
-////        catch (SQLException ex) {
-////            System.out.println("erreur lors de l'inscription " + ex.getMessage());
-////        }
-////    }
-//}

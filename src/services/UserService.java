@@ -20,6 +20,13 @@ public class UserService implements IUser{
     private final Connection c = MyConnection.getInstance().getConnection();
      private static  UserService instance;
     public static int conn ; 
+    public static UserService getInstance()
+    {
+        if (instance == null) {
+            instance = new  UserService();
+        }
+        return instance; 
+    }
     
     @Override
     public String login(User u) {
@@ -206,13 +213,7 @@ public class UserService implements IUser{
         }   
         return null;
      }
-      public static UserService getInstance()
-    {
-        if (instance == null) {
-            instance = new  UserService();
-        }
-        return instance; 
-    }
+   
     
     
 }
