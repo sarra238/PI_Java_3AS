@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-import javafx.animation.PauseTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,6 +49,8 @@ import static utils.util.somme;
  * @author Win10
  */
 public class ProduitClientController implements Initializable {
+    public static Produit pstat;
+    
     @FXML
     private TableView<Produit> tabAnn;
     @FXML
@@ -101,6 +102,8 @@ public class ProduitClientController implements Initializable {
     ObservableList<Produit> listProduitcommande = FXCollections.observableArrayList();
     @FXML
     private Button StatBtn;
+    @FXML
+    private Button contactBtn;
      
     /**
      * Initializes the controller class.
@@ -154,6 +157,7 @@ public class ProduitClientController implements Initializable {
           region.setVisible(true);
           regiontext.setVisible(true);
           region.setText(newSelection.getRegion());
+          pstat=newSelection;
     }});  
     }    
 
@@ -273,6 +277,28 @@ public class ProduitClientController implements Initializable {
         primaryStage.setTitle("Stat!");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    @FXML
+    private void contacter(ActionEvent event) throws IOException {
+       ObservableList<Produit> r,fo;
+        fo=tabAnn.getItems();
+        r=tabAnn.getSelectionModel().getSelectedItems();
+        if(r.size()>0){
+        
+        Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root2 = FXMLLoader.load(getClass().getResource("ProduitClient.fxml"));
+        Scene scene2 = new Scene(root2); 
+        primary.setTitle("Produits!");
+        primary.setScene(scene2);
+        primary.show();
+        Stage primaryStage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("ProduitContact.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Stat!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        }
     }
     
 }

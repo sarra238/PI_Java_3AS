@@ -190,7 +190,7 @@ public class UserService implements IUser{
      public User RechercherUsertById(int id)  {
         try {
             PreparedStatement pt;
-            String query = "select id,username,email, password, nom, prenom ,roles,  adresse,numTel from user where id='"+id+"'";
+            String query = "select id,username,email, password, nom, prenom ,roles,adresse,numTel from user where id='"+id+"'";
             pt=c.prepareStatement(query);
             ResultSet rs = pt.executeQuery();
         

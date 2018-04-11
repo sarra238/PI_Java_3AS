@@ -43,6 +43,8 @@ public class FXMLContacterController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,4 +71,5 @@ a.envoyer();
                         Logger.getLogger(FXMLMesPController.class.getName()).log(Level.SEVERE, null, ex);
                     }
     
-}}
+}
+}

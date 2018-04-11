@@ -29,11 +29,11 @@ import javax.mail.internet.MimeMessage;
 public  class MailT {
 
     
-private String username = "mounabenkouks@gmail.com";
-private String password = "welcometohell@@@";
-private String to ;
-private String sujet ;
-private String msg ;
+private final String username = "mounabenkouks@gmail.com";
+private final String password = "welcometohell@@@";
+private final String to ;
+private final String sujet ;
+private final String msg ;
 
     public MailT(String to, String sujet, String msg) {
         this.to = to;
@@ -48,8 +48,10 @@ props.put("mail.smtp.auth", "true");
 props.put("mail.smtp.starttls.enable","true");
 props.put("mail.smtp.host","smtp.gmail.com");
 props.put("mail.smtp.port","587");
+props.put("mail.smtp.ssl.trust", "*");
 Session session = Session.getInstance(props,
 new javax.mail.Authenticator() {
+@Override
 protected PasswordAuthentication getPasswordAuthentication() {
 return new PasswordAuthentication(username, password);
 }
