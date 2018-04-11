@@ -10,9 +10,11 @@ import Entities.Produit;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import javafx.animation.PauseTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
@@ -36,7 +39,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import services.ServiceProduit;
+import services.ServiceProduitm;
+import static utils.util.somme;
 
 /**
  * FXML Controller class
@@ -86,7 +92,14 @@ public class ProduitClientController implements Initializable {
     private Label regiontext;
     @FXML
     private Label region;
+    @FXML
+    private Button addtoCartBtn;
+    @FXML
+    private Button panier;
 
+    ObservableList<Produit> listProduit = FXCollections.observableArrayList();
+    ObservableList<Produit> listProduitcommande = FXCollections.observableArrayList();
+     
     /**
      * Initializes the controller class.
      * @param url
@@ -188,6 +201,60 @@ public class ProduitClientController implements Initializable {
 
     @FXML
     private void Sav(ActionEvent event) {
+    }
+
+    @FXML
+    private void addToCart(ActionEvent event) {
+        ServiceProduitm sp = new ServiceProduitm();
+     
+      tabAnn.setEditable(true);
+        int selectedIndex = tabAnn.getSelectionModel().getSelectedIndex();
+
+         Produit p = tabAnn.getSelectionModel().getSelectedItem();
+       int x=p.getId();
+
+        if (selectedIndex >= 0) {
+           tabAnn.getItems().remove(selectedIndex);
+           System.out.println(x);
+           System.out.println(p.getLongitude());
+           sp.approuver(p.getLongitude());
+           somme +=p.getPrix();
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Pas de Selection un produit");
+            alert.setHeaderText("vous n'avez pas sélectionner un produit !");
+            alert.setContentText("veuillez sélectionner un produit dans la table");
+            alert.showAndWait();
+
+        }
+    }
+
+    @FXML
+    private void goToPanier(ActionEvent event) throws SQLException, IOException {
+        ServiceProduitm sp = new ServiceProduitm();
+
+      listProduitcommande = sp.afficherproduitcommande();
+      if (   listProduitcommande.isEmpty())
+      {Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Votre panier est vide");
+            alert.setHeaderText("Vous n'avez pas encore commander un produit");
+            alert.setContentText("veuillez choisir commande un produit");
+            alert.showAndWait();}
+     else{
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("ProduitClient.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("roduits!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        Stage Stage=new Stage();
+        Parent root2=FXMLLoader.load(getClass().getResource("/pi/gui/panier.fxml"));
+        Scene scene2 = new Scene(root2);
+        Stage.setTitle("Panier!");
+        Stage.setScene(scene2);
+        Stage.show();
+           }
     }
     
 }

@@ -25,6 +25,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import Entities.Produit;
 import Entities.confcommande;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 import services.ServiceProduitm;
 import services.Serviceconfcommande1;
 import static utils.util.pr;
@@ -135,6 +137,8 @@ else if (selectedIndex >= 0)
             alert.setContentText("commande envoyer  attente de repense");
             alert.showAndWait();
  label.setText("");
+ Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    appStage.close();
         } else {
              Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Pas de Selection");
@@ -150,6 +154,8 @@ else if (selectedIndex >= 0)
     @FXML
     private void retour(ActionEvent event) 
     {
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    appStage.close();
     }
     
 }

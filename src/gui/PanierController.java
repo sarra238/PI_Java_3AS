@@ -85,6 +85,8 @@ public class PanierController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -138,23 +140,26 @@ System.out.println(p.getPrix());
 
     @FXML
     private void retour(ActionEvent event) throws IOException 
-    {         FXMLLoader loader = new FXMLLoader(getClass().getResource("/pi/gui/AffichageProduit.fxml"));
-    Parent root = loader.load();
-    Scene homePageScene = new Scene(root);
+    {
     Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    appStage.setScene(homePageScene);
-    appStage.show();
+    appStage.close();
     }
 
     @FXML
     private void commander1(ActionEvent event) throws IOException 
-    {                      
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/pi/gui/ajoutcommande.fxml"));
-    Parent root = loader.load();
-    Scene homePageScene = new Scene(root);
-    Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    appStage.setScene(homePageScene);
-    appStage.show();
+    {
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/pi/gui/panie.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("roduits!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        Stage Stage=new Stage();
+        Parent root2=FXMLLoader.load(getClass().getResource("/pi/gui/ajoutcommande.fxml"));
+        Scene scene2 = new Scene(root2);
+        Stage.setTitle("Commande!");
+        Stage.setScene(scene2);
+        Stage.show();
     }
 
     @FXML
@@ -163,12 +168,18 @@ System.out.println(p.getPrix());
 
     @FXML
     private void map(ActionEvent event) throws IOException {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("/pi/gui/Gmaps.fxml"));
-    Parent root = loader.load();
-    Scene homePageScene = new Scene(root);
-    Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    appStage.setScene(homePageScene);
-    appStage.show();
+    Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/pi/gui/panie.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("roduits!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        Stage Stage=new Stage();
+        Parent root2=FXMLLoader.load(getClass().getResource("/pi/gui/Gmaps.fxml"));
+        Scene scene2 = new Scene(root2);
+        Stage.setTitle("Map!");
+        Stage.setScene(scene2);
+        Stage.show();
     }
 
     @FXML

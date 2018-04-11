@@ -8,8 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #03224C;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="Controller.ProduitClientController">
+<AnchorPane id="AnchorPane" prefHeight="464.0" prefWidth="600.0" style="-fx-background-color: #03224C;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ProduitClientController">
    <children>
       <AnchorPane layoutX="13.0" layoutY="54.0" prefHeight="380.0" prefWidth="574.0" style="-fx-background-color: #FFFFFF;">
          <children>
@@ -23,7 +22,7 @@
             <Label fx:id="nom" layoutX="212.0" layoutY="153.0" prefHeight="18.0" prefWidth="311.0" text="NomAnn" visible="false" />
             <Label fx:id="Categorie" layoutX="319.0" layoutY="181.0" prefHeight="18.0" prefWidth="76.0" text="Categorie" visible="false" />
             <Label fx:id="prix" layoutX="323.0" layoutY="212.0" text="Prix" visible="false" />
-            <TextField fx:id="seach" layoutX="10.0" layoutY="59.0" promptText="Recherche" />
+            <TextField fx:id="seach" layoutX="10.0" layoutY="26.0" promptText="Recherche" />
             <Label fx:id="nbrText" layoutX="110.0" layoutY="5.0" text="Nbr" visible="false" />
             <Label fx:id="Categorietext" layoutX="219.0" layoutY="180.0" prefHeight="18.0" prefWidth="76.0" text="Categorie:" visible="false" />
             <Label fx:id="prixtext" layoutX="223.0" layoutY="211.0" text="Prix:" visible="false" />
@@ -43,5 +42,7 @@
       </AnchorPane>
       <Label fx:id="regiontext" layoutX="240.0" layoutY="323.0" text="Region:" visible="false" />
       <Label fx:id="region" layoutX="337.0" layoutY="323.0" text="Region" visible="false" />
+      <Button fx:id="addtoCartBtn" layoutX="100.0" layoutY="438.0" mnemonicParsing="false" onAction="#addToCart" style="-fx-background-color: #03224C;" text="Ajouter au panier" textFill="WHITE" />
+      <Button fx:id="panier" layoutX="302.0" layoutY="437.0" mnemonicParsing="false" onAction="#goToPanier" style="-fx-background-color: #03224C;" text="Panier" textFill="WHITE" />
    </children>
 </AnchorPane>
