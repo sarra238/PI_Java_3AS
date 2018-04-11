@@ -22,7 +22,17 @@ public class InputValidation {
         }
         return i;
     }
+  public static boolean validInteger(String username) {
+        boolean status = false;
 
+        String usernamePattern = "[0-9-]*$";
+        Pattern pattern = Pattern.compile(usernamePattern);
+        Matcher matcher = pattern.matcher(CharSequence.class.cast(username));
+        if (matcher.matches()) {
+            status = true;
+        }
+        return status;
+    }
     public static boolean validEmail(String email) {
         boolean status = false;
 

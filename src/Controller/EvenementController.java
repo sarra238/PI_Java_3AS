@@ -95,6 +95,14 @@ public class EvenementController implements Initializable {
             Alert alertNom = new InputValidation().getAlert("Nom Evenement", "Saisissez un nom ");
             alertNom.showAndWait();
         } 
+          if (InputValidation.validTextField(uuid)) {
+            Alert alertNom = new InputValidation().getAlert("Image", "Inserez  une images");
+            alertNom.showAndWait();
+        } 
+              if (InputValidation.validInteger(nbMax.getText())) {
+            Alert alertNom = new InputValidation().getAlert("ooopps!", "Nb max et de type integer");
+            alertNom.showAndWait();
+        } 
           if (InputValidation.validTextField(desc.getText())) {
             Alert alertNom = new InputValidation().getAlert("Description", "Saisissez une description ");
             alertNom.showAndWait();
@@ -111,9 +119,9 @@ public class EvenementController implements Initializable {
             Alert alertNom = new InputValidation().getAlert("Description", "Saisissez une description ");
             alertNom.showAndWait();
         } 
-          if (Datefin.getValue().toString().compareTo(Datefin.getValue().toString())==0){
+          if ((e.getDateDeb().compareTo(e.getDateFin()))==-1){
         s.AjouterEvenement(e);}
-          else { Alert alertNom = new InputValidation().getAlert("Description", "Saisissez une description ");
+          else { Alert alertNom = new InputValidation().getAlert("ooops", "date debut superieur a la date fin ");
             alertNom.showAndWait();}
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         primaryStage.close();

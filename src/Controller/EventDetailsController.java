@@ -34,6 +34,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -62,17 +63,17 @@ import utils.InputValidation;
 public class EventDetailsController implements Initializable {
 
     @FXML
-    private TextField type;
+    private Label type;
     @FXML
-    private TextField localisation;
+    private Label localisation;
     @FXML
-    private TextField Datefin;
+    private Label Datefin;
     @FXML
-    private TextField DateDeb;
+    private Label DateDeb;
     @FXML
-    private TextField desc;
+    private Label desc;
     @FXML
-    private TextField nomE;
+    private Label nomE;
     @FXML
     private TextField id;
     @FXML
@@ -103,9 +104,9 @@ public class EventDetailsController implements Initializable {
     private Image image;
     private File f;
     public String m;
-    @FXML
     private Button reserverB;
-    
+    public static  Evenement parID;
+   
     /**
      * Initializes the controller class.
      * @param url
@@ -118,7 +119,8 @@ public class EventDetailsController implements Initializable {
     
    public void iData(Evenement e) 
    { 
-         
+       parID=e;
+      
      partEvServices s = new partEvServices();
      if(s.Count(e.getId(), conn)== 0 ){
      id.setText(Integer.toString(e.getId()));
@@ -166,6 +168,7 @@ public class EventDetailsController implements Initializable {
                  break;
          }
      Eid.setText(Integer.toString(s.RechercherId(e.getId(), conn)));   
+     
      }   
        CommentEventServices v =  new  CommentEventServices();
             System.out.println(e.getId());
@@ -195,6 +198,7 @@ public class EventDetailsController implements Initializable {
               }    
               else if (nint.isSelected()) {
                  e.setType(nint.getText());
+                 
               }   
               else if  (par.isSelected()) {
                  e.setType(par.getText());  
@@ -240,138 +244,73 @@ alert.showAndWait();
         else if (s.Count(d.getId(), conn)!= 0) {
             part.getSelectedToggle().selectedProperty().addListener( (obs, oldSelection, newSelection) -> {
             try {
-                if( (oldSelection==par.isSelected())==true) 
+                if( oldSelection!=null) 
                 {
                     if ((newSelection==in.isSelected())==true){
                    
-                        particEv v =  s.RechercherParById(d.getId(), conn);
+                        particEv v =  s.RechercherParById(parID.getId(), conn);
                       v.setId(Integer.parseInt(Eid.getText()));
                         v.setType(in.getText());
                          nint.setSelected(false);
                  par.setSelected(false);
                  in.setSelected(true);
                         System.out.println("in");
-                        s.ModifierPart(v);
-                        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(EventDetailsController.this.getClass().getResource("EventDetails.fxml"));
-                        Parent root = loader.load();
-                        Scene scene = new Scene(root);
-                        EventDetailsController controller = loader.getController();
-                        controller.iData(d);
-                        primaryStage.setTitle("Details Event");
-                        primaryStage.setScene(scene);
-                        primaryStage.show();
+                      s.ModifierPart(v);
                     }
                     else if ((newSelection==nint.isSelected())==true){
                            nint.setSelected(true);
                  par.setSelected(false);
                  in.setSelected(false);
-                        particEv v =  s.RechercherParById(d.getId(), conn);
+                        particEv v =  s.RechercherParById(parID.getId(), conn);
                       v.setId(Integer.parseInt(Eid.getText()));
-                        v.setType("n'est pas interessé(e)");
-                        s.ModifierPart(v);
+                        v.setType(nint.getText());
+          
                         System.out.println("nint");
-                        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(EventDetailsController.this.getClass().getResource("EventDetails.fxml"));
-                        Parent root = loader.load();
-                        Scene scene = new Scene(root);
-                        EventDetailsController controller = loader.getController();
-                        controller.iData(d);
-                        primaryStage.setTitle("Details Event");
-                        primaryStage.setScene(scene);
-                        primaryStage.show();
+                       s.ModifierPart(v);
                     }
                    
-                }
-                else if( (oldSelection==nint.isSelected())==true) 
-                {
-                    if ((newSelection==par.isSelected())){
+                
+                  if ((newSelection==par.isSelected())==true){
                          nint.setSelected(false);
                  par.setSelected(true);
                  in.setSelected(false);
-                        particEv v =  s.RechercherParById(d.getId(), conn);
+                        particEv v =  s.RechercherParById(parID.getId(), conn);
                        v.setId(Integer.parseInt(Eid.getText()));
-                        v.setType("participer");
+                        v.setType(par.getText());
                         System.out.println("par");
-                        s.ModifierPart(v);
-                        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(EventDetailsController.this.getClass().getResource("EventDetails.fxml"));
-                        Parent root = loader.load();
-                        Scene scene = new Scene(root);
-                        EventDetailsController controller = loader.getController();
-                        controller.iData(d);
-                        primaryStage.setTitle("Details Event");
-                        primaryStage.setScene(scene);
-                        primaryStage.show();
-                    }
-                    else if (newSelection==in.isSelected()){
-                        particEv v =  s.RechercherParById(d.getId(), conn);
-                      v.setId(Integer.parseInt(Eid.getText()));
-                               in.setSelected(true);
-                 par.setSelected(false);
-                 nint.setSelected(false);
-                        v.setType("n'est pas interessé(e)");
-                        s.ModifierPart(v);
-                        System.out.println("nint");
-                        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(EventDetailsController.this.getClass().getResource("EventDetails.fxml"));
-                        Parent root = loader.load();
-                        Scene scene = new Scene(root);
-                        EventDetailsController controller = loader.getController();
-                        controller.iData(d);
-                        primaryStage.setTitle("Details Event");
-                        primaryStage.setScene(scene);
-                        primaryStage.show();
-                    }}
+                      
                     
-                     else if( (oldSelection==in.isSelected())==true) 
-                {
-                    if ((newSelection==par.isSelected())){
-                         nint.setSelected(false);
-                 par.setSelected(true);
-                 in.setSelected(false);
-                        particEv v =  s.RechercherParById(d.getId(), conn);
-                      v.setId(Integer.parseInt(Eid.getText()));
-                        v.setType("participer");
-                        System.out.println("par");
-                        s.ModifierPart(v);
-                        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(EventDetailsController.this.getClass().getResource("EventDetails.fxml"));
-                        Parent root = loader.load();
-                        Scene scene = new Scene(root);
-                        EventDetailsController controller = loader.getController();
-                        controller.iData(d);
-                        primaryStage.setTitle("Details Event");
-                        primaryStage.setScene(scene);
-                        primaryStage.show();
-                    }
-                    else if (newSelection==nint.isSelected()){
-                        particEv v =  s.RechercherParById(d.getId(), conn);
-                        v.setId(Integer.parseInt(Eid.getText()));
-                               nint.setSelected(true);
-                 par.setSelected(false);
-                 in.setSelected(false);
-                        v.setType("n'est pas interessé(e)");
-                        s.ModifierPart(v);
-                        System.out.println("nint");
-                        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(EventDetailsController.this.getClass().getResource("EventDetails.fxml"));
-                        Parent root = loader.load();
-                        Scene scene = new Scene(root);
-                        EventDetailsController controller = loader.getController();
-                        controller.iData(d);
-                        primaryStage.setTitle("Details Event");
-                        primaryStage.setScene(scene);
-                        primaryStage.show();
-                    }
-                    
+                    s.ModifierPart(v);
+                     if (d.getType().equals("formation")){
+  Alert alert = new InputValidation().getAlert("Succes", "Si vous êtes vraiment interessé a la participation a cette formation vous devrez conntacter la responsable a la formation "+resp);
+alert.showAndWait();
+
+        UserService a = new UserService();              
+      User  m = a.RechercherUsertById(conn);
+        ReserEvServices rs = new ReserEvServices();
+        ReserEv r = new ReserEv();
+        r.setIdEv(d.getId());
+        r.setUserId(conn);
+        r.setNom(m.getFname());
+        r.setPrenom(m.getLname());
+        r.setMail(m.getEmail());
+        r.setTel(m.getPhoneNumber());
+     rs.AjouterRes(r);
+     
+                     }
                 }
+                  
+                        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(EventDetailsController.this.getClass().getResource("EventDetails.fxml"));
+                        Parent root = loader.load();
+                        Scene scene = new Scene(root);
+                        EventDetailsController controller = loader.getController();
+                        controller.iData(d);
+                        primaryStage.setTitle("Details Event");
+                        primaryStage.setScene(scene);
+                        primaryStage.show();
+                    }
               
             }   catch (Exception ex) {
                     
@@ -406,7 +345,6 @@ alert.showAndWait();
         primaryStage.show();
     }
 
-    @FXML
     private void reserver(ActionEvent event) {
         User u;
         UserService us = new UserService();
