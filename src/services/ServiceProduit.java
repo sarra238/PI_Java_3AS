@@ -455,6 +455,24 @@ public static void deleteProduit2(int id) {
         }
         return list;
     }
+     
+     
+     
+     public static int Count (String s){
+         int i=0;
+        try {
+            String req = "select * from Produit where Region='"+s+"'";
+            PreparedStatement ste = ds.getConnection().prepareStatement(req);
+            ResultSet resultat = ste.executeQuery();
+            while (resultat.next()) {
+             i+=1;
+            }
+        } catch (SQLException ex) {
+            
+             System.out.println(ex);
+        }
+        return i;
+                }
      //******************************************************
 }
 

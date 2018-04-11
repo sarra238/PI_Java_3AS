@@ -85,6 +85,10 @@ public class ProduitArtisanController implements Initializable {
     private TextField seach;
     @FXML
     private ImageView imagev;
+    @FXML
+    private Button StatBtn;
+    @FXML
+    private Button CmdConfBtn;
 
     /**
      * Initializes the controller class.
@@ -241,6 +245,38 @@ public class ProduitArtisanController implements Initializable {
         primaryStage.show();
         
         }
+    }
+
+    @FXML
+    private void Stat(ActionEvent event) throws IOException {
+        Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root2 = FXMLLoader.load(getClass().getResource("ProduitArtisan.fxml"));
+        Scene scene2 = new Scene(root2); 
+        primary.setTitle("Produits!");
+        primary.setScene(scene2);
+        primary.show();
+        Stage primaryStage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("StatProduitRegion.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Stat!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    @FXML
+    private void CmdConf(ActionEvent event) throws IOException {
+        Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root2 = FXMLLoader.load(getClass().getResource("ProduitArtisan.fxml"));
+        Scene scene2 = new Scene(root2); 
+        primary.setTitle("Home!");
+        primary.setScene(scene2);
+        primary.show();
+        Stage primaryStage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/admincommande.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Commande à confirmer!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
     
 }

@@ -44,5 +44,6 @@
       <Label fx:id="region" layoutX="337.0" layoutY="323.0" text="Region" visible="false" />
       <Button fx:id="addtoCartBtn" layoutX="100.0" layoutY="438.0" mnemonicParsing="false" onAction="#addToCart" style="-fx-background-color: #03224C;" text="Ajouter au panier" textFill="WHITE" />
       <Button fx:id="panier" layoutX="302.0" layoutY="437.0" mnemonicParsing="false" onAction="#goToPanier" style="-fx-background-color: #03224C;" text="Panier" textFill="WHITE" />
+      <Button fx:id="StatBtn" layoutX="430.0" layoutY="438.0" mnemonicParsing="false" onAction="#Stat" style="-fx-background-color: #03224C;" text="Statistique" textFill="WHITE" />
    </children>
 </AnchorPane>

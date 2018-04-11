@@ -39,5 +39,6 @@
             <ImageView fx:id="imagev" fitHeight="170.0" fitWidth="106.0" layoutX="-1.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
+      <Button fx:id="StatBtn" layoutX="440.0" layoutY="371.0" mnemonicParsing="false" onAction="#Stat" style="-fx-background-color: #03224C;" text="Statistique" textFill="WHITE" />
    </children>
 </AnchorPane>

@@ -36,8 +36,6 @@ public class HomeController implements Initializable {
     private Button SAV;
     @FXML
     private Button Deconnexion;
-    @FXML
-    private Button CmdConfBtn;
 
     /**
      * Initializes the controller class.
@@ -112,20 +110,5 @@ public class HomeController implements Initializable {
         primaryStage.show();
     }
 
-    @FXML
-    private void CmdConf(ActionEvent event) throws IOException {
-        Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root2 = FXMLLoader.load(getClass().getResource("Home.fxml"));
-        Scene scene2 = new Scene(root2); 
-        primary.setTitle("Home!");
-        primary.setScene(scene2);
-        primary.show();
-        Stage primaryStage=new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/admincommande.fxml"));
-        Scene scene = new Scene(root);
-        primaryStage.setTitle("Commande à confirmer!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
     
 }

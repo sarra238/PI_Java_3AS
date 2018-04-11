@@ -99,6 +99,8 @@ public class ProduitClientController implements Initializable {
 
     ObservableList<Produit> listProduit = FXCollections.observableArrayList();
     ObservableList<Produit> listProduitcommande = FXCollections.observableArrayList();
+    @FXML
+    private Button StatBtn;
      
     /**
      * Initializes the controller class.
@@ -255,6 +257,22 @@ public class ProduitClientController implements Initializable {
         Stage.setScene(scene2);
         Stage.show();
            }
+    }
+
+    @FXML
+    private void Stat(ActionEvent event) throws IOException {
+        Stage primary = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root2 = FXMLLoader.load(getClass().getResource("ProduitClient.fxml"));
+        Scene scene2 = new Scene(root2); 
+        primary.setTitle("Produits!");
+        primary.setScene(scene2);
+        primary.show();
+        Stage primaryStage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("StatProduitRegion.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Stat!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
     
 }

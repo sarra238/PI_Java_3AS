@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #03224C;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="Controller.StatProduitRegionController">
+   <children>
+      <Label layoutX="161.0" layoutY="23.0" text="Statistique Projet" textFill="WHITE">
+         <font>
+            <Font size="39.0" />
+         </font>
+      </Label>
+      <Label layoutX="399.0" layoutY="79.0" text="Par Region" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <PieChart fx:id="pie" layoutX="-4.0" layoutY="113.0" prefHeight="284.0" prefWidth="600.0" styleClass="\\@StatCss.css" />
+   </children>
+</AnchorPane>

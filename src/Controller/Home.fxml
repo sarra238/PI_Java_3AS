@@ -23,6 +23,5 @@
          </image>
       </ImageView>
       <Button fx:id="Deconnexion" layoutX="509.0" layoutY="382.0" mnemonicParsing="false" onAction="#Deconnexion" style="-fx-background-color: #03224C;" text="Déconnexion" textFill="WHITE" />
-      <Button fx:id="CmdConfBtn" layoutX="324.0" layoutY="383.0" mnemonicParsing="false" onAction="#CmdConf" style="-fx-background-color: #03224C;" text="Commandes à Confirmer" textFill="WHITE" />
    </children>
 </AnchorPane>
